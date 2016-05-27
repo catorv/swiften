@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  # s.source_files  = "Swiften", "Swiften/**/*.{h,m}"
+  s.source_files  = "Swiften", "Swiften/**/*.{h,m,c,mm,swift}"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -109,6 +109,7 @@ Pod::Spec.new do |s|
   # s.resources = "Resources/*.png"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
+  s.preserve_paths = 'Modules/**/*'
 
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -133,6 +134,10 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
+  s.pod_target_xcconfig = {
+    "SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" => "$(SRCROOT)/Swiften/Modules",
+    'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(SRCROOT)/Swiften/Modules'
+  }
   # s.dependency "JSONKit", "~> 1.4"
   s.dependency 'SwiftyJSON'
   s.dependency 'KeychainSwift'
@@ -141,14 +146,5 @@ Pod::Spec.new do |s|
   s.dependency 'Alamofire'
   s.dependency 'AlamofireObjectMapper'
   s.dependency 'AlamofireImage'
-  
-  s.subspec 'standard' do |ss|
-    ss.source_files  = "Swiften", "Swiften/**/*.{h,m,c,swift}"
-
-    ss.pod_target_xcconfig = {
-      "SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" => "$(SRCROOT)/Swiften/CommonCrypto",
-      'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(SRCROOT)/Swiften/CommonCrypto'
-    }
-  end
 
 end

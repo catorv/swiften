@@ -693,7 +693,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.catorv.Swiften;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = CommonCrypto;
+				SWIFT_INCLUDE_PATHS = Modules;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -713,7 +713,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.catorv.Swiften;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = CommonCrypto;
+				SWIFT_INCLUDE_PATHS = Modules;
 			};
 			name = Release;
 		};
