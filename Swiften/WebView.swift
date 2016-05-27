@@ -160,13 +160,13 @@ extension WebView {
 // MARK: - WKNavigationDelegate Proxy
 
 extension WebView: WKNavigationDelegate {
-    public func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        navigationDelegate?.webView?(webView, decidePolicyForNavigationAction: navigationAction, decisionHandler: decisionHandler)
-    }
+    //public func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        //navigationDelegate?.webView?(webView, decidePolicyForNavigationAction: navigationAction, decisionHandler: decisionHandler)
+    //}
     
-    public func webView(webView: WKWebView, decidePolicyForNavigationResponse navigationResponse: WKNavigationResponse, decisionHandler: (WKNavigationResponsePolicy) -> Void) {
-        navigationDelegate?.webView?(webView, decidePolicyForNavigationResponse: navigationResponse, decisionHandler: decisionHandler)
-    }
+    //public func webView(webView: WKWebView, decidePolicyForNavigationResponse navigationResponse: WKNavigationResponse, decisionHandler: (WKNavigationResponsePolicy) -> Void) {
+        //navigationDelegate?.webView?(webView, decidePolicyForNavigationResponse: navigationResponse, decisionHandler: decisionHandler)
+    //}
     
     public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         Log.info("webview: \(webView.URL!.absoluteString)")
