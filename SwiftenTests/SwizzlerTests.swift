@@ -1,0 +1,49 @@
+//
+//  SwizzlerTests.swift
+//  Swiften
+//
+//  Created by Cator Vee on 5/26/16.
+//  Copyright © 2016 Cator Vee. All rights reserved.
+//
+
+import XCTest
+@testable import Swiften
+
+class TestSwizzling: NSObject {
+    dynamic func methodOne() -> Int {
+        return 1
+    }
+}
+
+extension TestSwizzling {
+
+    override class func initialize() {
+        struct Static {
+            static var token: dispatch_once_t = 0;
+        }
+
+        // make sure this isn't a subclass
+        if self !== TestSwizzling.self {
+            return
+        }
+
+        // 只执行一次
+        dispatch_once(&Static.token) {
+            Swizzler.swizzleMethod(#selector(TestSwizzling.methodOne), with: #selector(TestSwizzling.methodTwo), forClass: TestSwizzling.self)
+        }
+    }
+
+    func methodTwo() -> Int {
+        return methodTwo() + 1
+    }
+}
+
+class SwizzlerTests: XCTestCase {
+
+    func testSwizzle() {
+        let c = TestSwizzling()
+        XCTAssertEqual(c.methodOne(), 2)
+        XCTAssertEqual(c.methodTwo(), 1)
+    }
+
+}
