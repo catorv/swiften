@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-  Swiften
+    Swiften
                    DESC
 
   s.homepage     = "https://github.com/catorv/swiften"
@@ -68,7 +68,7 @@ Pod::Spec.new do |s|
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
+  s.ios.deployment_target = "8.0"
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
   # s.tvos.deployment_target = "9.0"
@@ -109,7 +109,7 @@ Pod::Spec.new do |s|
   # s.resources = "Resources/*.png"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
-  s.preserve_paths = 'Modules/**/*'
+  s.preserve_paths = 'CocoaPods/**/*'
 
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -135,8 +135,8 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.pod_target_xcconfig = {
-    "SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" => "$(SRCROOT)/Swiften/Modules",
-    'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(SRCROOT)/Swiften/Modules'
+    "SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" => "$(SRCROOT)/Swiften/CocoaPods/iphoneos",
+    'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(SRCROOT)/Swiften/CocoaPods/iphonesimulator'
   }
   # s.dependency "JSONKit", "~> 1.4"
   s.dependency 'SwiftyJSON'
