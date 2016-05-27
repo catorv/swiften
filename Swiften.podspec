@@ -133,6 +133,7 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
+  s.xcconfig = { "SWIFT_INCLUDE_PATHS" => "$(SRCROOT)/Swiften/CommonCrypto" }
   # s.dependency "JSONKit", "~> 1.4"
   s.dependency 'SwiftyJSON'
   s.dependency 'KeychainSwift'
