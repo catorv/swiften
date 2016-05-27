@@ -146,7 +146,8 @@ Pod::Spec.new do |s|
     ss.source_files  = "Swiften", "Swiften/**/*.{h,m,c,swift}"
 
     ss.pod_target_xcconfig = {
-      "SWIFT_INCLUDE_PATHS" => "$(SRCROOT)/Swiften/CommonCrypto"
+      "SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" => "$(SRCROOT)/Swiften/CommonCrypto",
+      'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(SRCROOT)/Swiften/CommonCrypto'
     }
   end
 
