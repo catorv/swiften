@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Swiften", "Swiften/**/*.{h,m}"
+  # s.source_files  = "Swiften", "Swiften/**/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -133,9 +133,6 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.pod_target_xcconfig = {
-    "SWIFT_INCLUDE_PATHS" => "$(SRCROOT)/Swiften/CommonCrypto"
-  }
   # s.dependency "JSONKit", "~> 1.4"
   s.dependency 'SwiftyJSON'
   s.dependency 'KeychainSwift'
@@ -144,5 +141,13 @@ Pod::Spec.new do |s|
   s.dependency 'Alamofire'
   s.dependency 'AlamofireObjectMapper'
   s.dependency 'AlamofireImage'
+  
+  s.subspec 'standard' do |ss|
+    ss.source_files  = "Swiften", "Swiften/**/*.{h,m,c,swift}"
+
+    ss.pod_target_xcconfig = {
+      "SWIFT_INCLUDE_PATHS" => "$(SRCROOT)/Swiften/CommonCrypto"
+    }
+  end
 
 end
