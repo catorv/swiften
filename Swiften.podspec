@@ -109,7 +109,7 @@ Pod::Spec.new do |s|
   # s.resources = "Resources/*.png"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
-  s.preserve_paths = 'CocoaPods/**/*'
+  s.preserve_paths = 'CocoaPods'
 
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
