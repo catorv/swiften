@@ -200,9 +200,9 @@ extension WebView: WKNavigationDelegate {
         navigationDelegate?.webView?(webView, didFailNavigation: navigation, withError: error)
     }
     
-    public func webView(webView: WKWebView, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
-        navigationDelegate?.webView?(webView, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
-    }
+    //public func webView(webView: WKWebView, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+        //navigationDelegate?.webView?(webView, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
+    //}
     
     @available(iOS 9.0, *)
     public func webViewWebContentProcessDidTerminate(webView: WKWebView) {
