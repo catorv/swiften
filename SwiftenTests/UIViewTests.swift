@@ -16,13 +16,13 @@ class CustomView: UIView {
     }
 }
 
-extension UIView {
-    override public class func initialize() {
-        super.initialize()
-        Log.debug("================================")
-        swizzles_swiften()
-    }
-}
+//extension UIView {
+//    override public class func initialize() {
+//        super.initialize()
+//        Log.debug("================================")
+//        swizzles_swiften()
+//    }
+//}
 
 class UIViewTests: XCTestCase {
 
