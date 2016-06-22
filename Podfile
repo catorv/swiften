@@ -3,7 +3,7 @@ use_frameworks!
 
 target :Swiften do
     pod 'SwiftyJSON'
-    pod 'KeychainSwift'
+    pod 'KeychainSwift', '~> 3.0.16'
     pod 'ObjectMapper'
     pod 'RealmSwift', '~> 0.98.8'
     pod 'Alamofire'
@@ -13,7 +13,7 @@ end
 
 target :SwiftenTests do
     pod 'SwiftyJSON'
-    pod 'KeychainSwift'
+    pod 'KeychainSwift', '~> 3.0.16'
     pod 'ObjectMapper'
     pod 'RealmSwift', '~> 0.98.8'
     pod 'Alamofire'
