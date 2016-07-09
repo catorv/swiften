@@ -33,7 +33,7 @@ public struct Log {
             filename = file
         }
 
-        var thread = NSThread.currentThread()
+        let thread = NSThread.currentThread()
         var threadDesc: String
         if thread.isMainThread {
             threadDesc = "main"

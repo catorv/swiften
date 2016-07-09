@@ -83,7 +83,7 @@ public class LocalStorage {
         autoCommit = true
     }
 
-    init() {
+    public init() {
 
     }
 }
