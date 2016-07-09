@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "Swiften"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A short description of Swiften."
 
   # This description is used to generate tags and improve search results.
@@ -140,7 +140,7 @@ Pod::Spec.new do |s|
   }
   # s.dependency "JSONKit", "~> 1.4"
   s.dependency 'SwiftyJSON'
-  s.dependency 'KeychainSwift'
+  s.dependency 'KeychainSwift', '~> 3.0.16'
   s.dependency 'ObjectMapper'
   s.dependency 'RealmSwift', '~> 0.98.8'
   s.dependency 'Alamofire'
