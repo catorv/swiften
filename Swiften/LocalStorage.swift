@@ -82,4 +82,8 @@ public class LocalStorage {
         defaults.synchronize()
         autoCommit = true
     }
+
+    init() {
+
+    }
 }
