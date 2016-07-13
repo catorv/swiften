@@ -39,7 +39,7 @@ extension WebView {
             }
         }
 
-        private func callback(success: Bool, msg: Any, options: Options, evaluateJavaScript: Bool = true) {
+        public func callback(success: Bool, msg: Any, options: Options, evaluateJavaScript: Bool = true) {
             guard let webView = userContentController?.webView else { return }
 
             let methodName = options[userContentController!.methodKey] as! String
@@ -61,7 +61,7 @@ extension WebView {
             }
         }
 
-        private func cancel(options: Options) {
+        public func cancel(options: Options) {
             guard let webView = userContentController?.webView else { return }
 
             let methodName = options[userContentController!.methodKey] as! String

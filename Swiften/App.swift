@@ -9,6 +9,12 @@
 import Foundation
 
 public struct App {
+
+    public enum RunMode {
+        case debug, test, release
+    }
+
+    public static var runMode: RunMode = .debug
     
     public static var bundle: NSBundle {
         return NSBundle.mainBundle()

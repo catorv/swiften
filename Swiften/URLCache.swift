@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class LDURLCache: NSURLCache {
+public class URLCache: NSURLCache {
     
     public static var cacheFolder = "URLCache" // The folder in the Documents folder where cached files will be saved
     public static var memoryCapacity = 16 * 1024 * 1024 // The maximum memory size that will be cached
@@ -22,7 +22,7 @@ public class LDURLCache: NSURLCache {
         // set caching paths
         let cachePath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0]
         cacheDirectory = NSURL(fileURLWithPath: cachePath).URLByAppendingPathComponent(cacheFolder).absoluteString
-        let urlCache = LDURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: cacheDirectory)
+        let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: cacheDirectory)
         NSURLCache.setSharedURLCache(urlCache)
     }
     
@@ -39,7 +39,7 @@ public class LDURLCache: NSURLCache {
             return nil
         }
         
-        if !LDURLCache.filter(request: request) {
+        if !URLCache.filter(request: request) {
             Log.error("CACHE skipped because of filter")
             return nil
         }
@@ -49,7 +49,7 @@ public class LDURLCache: NSURLCache {
             return nil
         }
         
-        let storagePath = LDURLCache.storagePathForRequest(request, rootPath: LDURLCache.cacheDirectory)
+        let storagePath = URLCache.storagePathForRequest(request, rootPath: URLCache.cacheDirectory)
         if !NSFileManager.defaultManager().fileExistsAtPath(storagePath) {
             //Log.warn("CACHE not found \(storagePath) for \(url.absoluteString)")
             return nil
@@ -75,7 +75,7 @@ public class LDURLCache: NSURLCache {
     
     // Will be called by NSURLConnection when a request is complete.
     public override func storeCachedResponse(cachedResponse: NSCachedURLResponse, forRequest request: NSURLRequest) {
-        if !LDURLCache.filter(request: request) {
+        if !URLCache.filter(request: request) {
             return
         }
         if let httpResponse = cachedResponse.response as? NSHTTPURLResponse {
@@ -85,7 +85,7 @@ public class LDURLCache: NSURLCache {
             }
         }
         
-        let storagePath = LDURLCache.storagePathForRequest(request, rootPath: LDURLCache.cacheDirectory)
+        let storagePath = URLCache.storagePathForRequest(request, rootPath: URLCache.cacheDirectory)
         if storagePath.isEmpty {
             Log.error("Error building cache storage path")
         }
@@ -119,7 +119,7 @@ public class LDURLCache: NSURLCache {
         } else {
             //Log.info("CACHE save file to Cache  : \(storagePath)");
             // prevent iCloud backup
-            if !LDURLCache.addSkipBackupAttributeToItemAtURL(NSURL(fileURLWithPath: storagePath)) {
+            if !URLCache.addSkipBackupAttributeToItemAtURL(NSURL(fileURLWithPath: storagePath)) {
                 Log.warn("Could not set the do not backup attribute");
             }
         }
@@ -127,7 +127,7 @@ public class LDURLCache: NSURLCache {
     
     // return the path if the file for the request is in the PreCache or Cache.
     static func storagePathForRequest(request: NSURLRequest) -> String? {
-        var storagePath: String? = LDURLCache.storagePathForRequest(request, rootPath: LDURLCache.cacheDirectory)
+        var storagePath: String? = URLCache.storagePathForRequest(request, rootPath: URLCache.cacheDirectory)
         if !NSFileManager.defaultManager().fileExistsAtPath(storagePath ?? "") {
             storagePath = nil
         }

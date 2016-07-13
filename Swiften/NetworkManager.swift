@@ -15,9 +15,9 @@ public class NetworkManager {
     
     public static let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
     
-    public static func initNetworkManager(serverTrustPolicies: [String: ServerTrustPolicy]? = nil) {
+    public static func initNetworkManager(sserverTrustPolicie serverTrustPolicies: [String: ServerTrustPolicy]? = nil) {
         
-        LDURLCache.activate()
+        URLCache.activate()
         
         var serverTrustPolicyManager: ServerTrustPolicyManager? = nil
         if let policies = serverTrustPolicies {

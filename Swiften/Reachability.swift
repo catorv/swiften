@@ -119,7 +119,9 @@ public class Reachability: CustomStringConvertible {
 
         guard let ref = withUnsafePointer(&zeroAddress, {
             SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
-        }) else { return nil }
+        }) else {
+            return nil
+        }
 
         return Reachability(reachabilityRef: ref)
     }

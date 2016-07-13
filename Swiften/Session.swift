@@ -76,7 +76,4 @@ public class Session: LocalStorage {
         set { setObject(newValue, forKey: "CITY") }
     }
 
-    public override init() {
-        super.init()
-    }
 }

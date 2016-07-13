@@ -26,6 +26,10 @@ class CustomView: UIView {
 
 class UIViewTests: XCTestCase {
 
+    override func setUp() {
+        Swiften.initFramework()
+    }
+
     func testPerformanceExample() {
         let view = CustomView()
         XCTAssertEqual(view.tag, 100)

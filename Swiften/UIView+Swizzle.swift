@@ -16,8 +16,8 @@ extension UIView {
         return view
     }
     
-    func swizzed_init(coder aDecoder: NSCoder) -> UIView? {
-        if let view = self.swizzed_init(coder: aDecoder) {
+    func __swizzed_init(coder aDecoder: NSCoder) -> UIView? {
+        if let view = self.__swizzed_init(coder: aDecoder) {
             view.setupView()
             return view
         }
@@ -29,7 +29,7 @@ extension UIView {
         // nothing
     }
     
-    public class func swizzles_swiften() {
+    public class func swizzle() {
         struct Static {
             static var token: dispatch_once_t = 0;
         }
@@ -42,12 +42,7 @@ extension UIView {
         // 只执行一次
         dispatch_once(&Static.token) {
             Swizzler.swizzleMethod(#selector(UIView.init(frame:)), with: #selector(UIView.__swizzed_init(frame:)), forClass: UIView.self)
-            Swizzler.swizzleMethod(#selector(UIView.init(coder:)), with: #selector(UIView.swizzed_init(coder:)), forClass: UIView.self)
+            Swizzler.swizzleMethod(#selector(UIView.init(coder:)), with: #selector(UIView.__swizzed_init(coder:)), forClass: UIView.self)
         }
-    }
-    
-    override public class func initialize() {
-        super.initialize()
-        swizzles_swiften()
     }
 }

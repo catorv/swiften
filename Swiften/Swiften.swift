@@ -11,5 +11,5 @@ import Foundation
 public let session = Session()
 
 public func initFramework() {
-    
+    UIView.swizzle()
 }
