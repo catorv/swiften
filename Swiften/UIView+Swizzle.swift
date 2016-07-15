@@ -25,7 +25,7 @@ extension UIView {
     }
     
     /// 空方法，用于重新设置view的内容
-    func setupView() {
+    public func setupView() {
         // nothing
     }
     
