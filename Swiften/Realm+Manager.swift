@@ -13,8 +13,8 @@ extension Realm {
     
     private static let rootPath = (Realm.Configuration.defaultConfiguration.path! as NSString).stringByDeletingLastPathComponent
     
-    static private var _userRealm: Realm!
-    static func userRealm() -> Realm {
+    private static var _userRealm: Realm!
+    public static var userRealm: Realm {
         if _userRealm == nil {
             //let realm = Realm.sharedRealm()
             //if let user = auth.user {
@@ -22,6 +22,7 @@ extension Realm {
             //} else {
                 //return realm
             //}
+            return Realm.sharedRealm
         }
         return _userRealm
     }
