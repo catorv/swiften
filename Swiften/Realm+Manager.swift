@@ -11,7 +11,7 @@ import RealmSwift
 
 extension Realm {
     
-    private static let rootPath = (Realm.Configuration.defaultConfiguration.path! as NSString).stringByDeletingLastPathComponent
+    public static let rootPath = (Realm.Configuration.defaultConfiguration.path! as NSString).stringByDeletingLastPathComponent
     
     private static var _userRealm: Realm!
     public static var userRealm: Realm {
