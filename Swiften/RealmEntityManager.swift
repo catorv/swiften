@@ -61,6 +61,14 @@ public class RealmEntityManager<T: Object> {
         }
     }
 
+    public func write(callback: () -> Void) {
+        do {
+            try realm.write(callback)
+        } catch let error {
+            Log.error("EntityManager: \(error)")
+        }
+    }
+
     // MARK: - Delete Entity
 
     public func delete(object: T) {
