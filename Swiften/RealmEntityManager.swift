@@ -13,7 +13,7 @@ public class RealmEntityManager<T: Object> {
 
     public var realm: Realm
 
-    public init(realm: realm) {
+    public init(realm: Realm) {
         self.realm = realm
     }
     
