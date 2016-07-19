@@ -8,9 +8,9 @@
 
 import Foundation
 
-class VerticalButton: UIButton {
+public class VerticalButton: UIButton {
 
-    var gap: CGFloat = 5
+    public var gap: CGFloat = 5
 
     override func layoutSubviews() {
         super.layoutSubviews()
