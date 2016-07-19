@@ -43,7 +43,7 @@ public class ActionSheetController: UIViewController {
     public func dismissActionSheetController(completion: (() -> Void)? = nil) {
         UIView.transitionWithView (self.popupView, duration: 0.25, options: .BeginFromCurrentState, animations: {
             self.view.backgroundColor = UIColor(rgba: 0x00000000)
-            self.popupView.alpha = 0
+//            self.popupView.alpha = 0
             self.popupView.frame = CGRect(origin: CGPoint(x: 0, y: self.view.bounds.size.height), size: self.popupView.frame.size)
             }, completion: { (finished) in
             self.dismissViewControllerAnimated(false, completion: completion)
