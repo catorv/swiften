@@ -13,7 +13,7 @@ class VerticalButton: UIButton {
     var gap: CGFloat = 5
 
     override func layoutSubviews() {
-        layoutSubviews()
+        super.layoutSubviews()
 
         guard let imageView = imageView, titleLabel = titleLabel else { return }
 
