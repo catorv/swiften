@@ -11,7 +11,7 @@ import Foundation
 // MARK: Data
 
 extension UIImage {
-    var data: NSData? {
+    public var data: NSData? {
         switch contentType {
         case .JPEG:
             return UIImageJPEGRepresentation(self, 1)
@@ -101,7 +101,7 @@ extension UIImage {
         }
     }
     
-    var contentType: ContentType {
+    public var contentType: ContentType {
         get {
             let value = objc_getAssociatedObject(self, &AssociatedKey.contentType) as? Int ?? 0
             if value == 0 {
