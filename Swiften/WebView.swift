@@ -24,11 +24,18 @@ public class WebView: UIView {
         return ua
     }
 
-    public static var defaultConfiguration: WKWebViewConfiguration {
+    public static var defaultConfiguration: WKWebViewConfiguration = {
         let config = WKWebViewConfiguration()
+        config.processPool = WKProcessPool()
         config.userContentController = UserContentController()
+        config.allowsInlineMediaPlayback = true
+        if #available(iOS 9.0, *) {
+            config.requiresUserActionForMediaPlayback = false
+        } else {
+            config.mediaPlaybackRequiresUserAction = false
+        }
         return config
-    }
+    }()
 
     // MARK: properties
 
