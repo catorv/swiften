@@ -51,11 +51,11 @@ extension WebView {
             if let webView = userContentController!.webView.webView {
                 let callbackFunction = success ? options["success"]: options["fail"]
                 if let funcname = callbackFunction as? String {
-                    Log.info("embed service: \(success ? "success" : "fail")(\(methodName))")
+                    Log.info("embed service: \(success ? "success" : "fail") \(funcname)(\(methodName))")
                     webView.evaluateJavaScript("\(funcname)(\(result))", completionHandler: nil)
                 }
                 if let complete = options["complete"] as? String {
-                    Log.info("embed service: complete(\(methodName))")
+                    Log.info("embed service: complete \(complete)(\(methodName))")
                     webView.evaluateJavaScript("\(complete)(\(result))", completionHandler: nil)
                 }
             }
