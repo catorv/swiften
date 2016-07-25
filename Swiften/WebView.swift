@@ -31,6 +31,7 @@ public class WebView: UIView {
         config.userContentController = UserContentController()
         config.allowsInlineMediaPlayback = true
         if #available(iOS 9.0, *) {
+            config.websiteDataStore = WKWebsiteDataStore.defaultDataStore()
             config.requiresUserActionForMediaPlayback = false
         } else {
             config.mediaPlaybackRequiresUserAction = false
@@ -40,7 +41,7 @@ public class WebView: UIView {
 
     // MARK: properties
 
-    private var loadingProgressBar = UIProgressView()
+    public var loadingProgressBar = UIProgressView()
     public var loadingProgressBarHidden: Bool = false {
         didSet {
             loadingProgressBar.hidden = loadingProgressBarHidden
@@ -122,146 +123,4 @@ public class WebView: UIView {
         }
     }
 
-}
-
-// MARK: - WKWebView Proxy
-
-extension WebView {
-
-    // MARK: The properties of WKWebView
-
-    public var canGoBack: Bool {
-        return webView.canGoBack
-    }
-    public var canGoForward: Bool {
-        return webView.canGoForward
-    }
-    public var title: String? {
-        return webView.title
-    }
-    public var loading: Bool {
-        return webView.loading
-    }
-    public var URL: NSURL? {
-        return webView.URL
-    }
-
-    // MARK: - The methods of WKWebView
-
-    public func reload() -> WKNavigation? {
-        return webView.reload()
-    }
-
-    public func reloadFromOrigin() -> WKNavigation? {
-        return webView.reloadFromOrigin()
-    }
-
-    public func loadRequest(request: NSURLRequest) -> WKNavigation? {
-        return webView.loadRequest(request)
-    }
-
-    public func loadHTMLString(string: String, baseURL: NSURL?) -> WKNavigation? {
-        return webView.loadHTMLString(string, baseURL: baseURL)
-    }
-
-    public func stopLoading() {
-        webView.stopLoading()
-    }
-
-    public func goBack() -> WKNavigation? {
-        return webView.goBack()
-    }
-
-    public func goForward() -> WKNavigation? {
-        return webView.goForward()
-    }
-
-    public func evaluateJavaScript(javaScriptString: String, completionHandler: ((AnyObject?, NSError?) -> Void)?) {
-        webView.evaluateJavaScript(javaScriptString, completionHandler: completionHandler)
-    }
-}
-
-// MARK: - WKNavigationDelegate Proxy
-
-extension WebView: WKNavigationDelegate {
-    //public func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-    //navigationDelegate?.webView?(webView, decidePolicyForNavigationAction: navigationAction, decisionHandler: decisionHandler)
-    //}
-
-    //public func webView(webView: WKWebView, decidePolicyForNavigationResponse navigationResponse: WKNavigationResponse, decisionHandler: (WKNavigationResponsePolicy) -> Void) {
-    //navigationDelegate?.webView?(webView, decidePolicyForNavigationResponse: navigationResponse, decisionHandler: decisionHandler)
-    //}
-
-    public func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        Log.info("webview: \(webView.URL!.absoluteString)")
-        if !loadingProgressBarHidden {
-            loadingProgressBar.hidden = false
-            loadingProgressBar.progress = 0.1
-        }
-        navigationDelegate?.webView?(webView, didStartProvisionalNavigation: navigation)
-    }
-
-    public func webView(webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        navigationDelegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
-    }
-
-    public func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
-        Log.error("webview didFailProvisionalNavigation:\(error)")
-        navigationDelegate?.webView?(webView, didFailProvisionalNavigation: navigation, withError: error)
-    }
-
-    public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        loadingProgressBar.hidden = true
-        loadingProgressBar.progress = 1
-        navigationDelegate?.webView?(webView, didFinishNavigation: navigation!)
-    }
-
-    public func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
-        navigationDelegate?.webView?(webView, didCommitNavigation: navigation)
-    }
-
-    public func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
-        navigationDelegate?.webView?(webView, didFailNavigation: navigation, withError: error)
-    }
-
-    //public func webView(webView: WKWebView, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
-    //navigationDelegate?.webView?(webView, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
-    //}
-
-    @available(iOS 9.0, *)
-    public func webViewWebContentProcessDidTerminate(webView: WKWebView) {
-        navigationDelegate?.webViewWebContentProcessDidTerminate?(webView)
-    }
-}
-
-// MARK: - WKUIDelegate Proxy
-
-extension WebView: WKUIDelegate {
-
-    public func webView(webView: WKWebView, createWebViewWithConfiguration configuration: WKWebViewConfiguration, forNavigationAction navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        return UIDelegate?.webView?(webView, createWebViewWithConfiguration: configuration, forNavigationAction: navigationAction, windowFeatures: windowFeatures)
-    }
-
-    @available(iOS 9.0, *)
-    public func webViewDidClose(webView: WKWebView) {
-        UIDelegate?.webViewDidClose?(webView)
-    }
-
-    public func webView(webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: () -> Void) {
-        alert(message) {
-            _ in completionHandler()
-        }
-    }
-
-    public func webView(webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: (Bool) -> Void) {
-        confirm(message) {
-            completionHandler($0)
-        }
-    }
-
-    public func webView(webView: WKWebView, runJavaScriptTextInputPanelWithPrompt message: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: (String?) -> Void) {
-        prompt(message, title: nil, text: defaultText) {
-            completionHandler($0)
-        }
-    }
 }

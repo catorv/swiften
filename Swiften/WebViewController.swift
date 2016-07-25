@@ -28,7 +28,7 @@ public class WebViewController: UIViewController {
     }
 
     public func load(from URL: NSURL) {
-        if let webView = webView {
+        if webView != nil {
             load(NSURLRequest(URL: URL))
         } else {
             self.URL = URL
