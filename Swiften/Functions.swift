@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Toast_Swift
 
 /// 延迟执行代码
 public func delay(seconds: UInt64, task: () -> Void) {
@@ -78,4 +79,10 @@ public func prompt(message: String, title: String! = nil, text: String! = nil, p
         }
     }
     UIViewController.topViewController?.presentViewController(controller, animated: true, completion: nil)
+}
+
+public func toast(message: String?, duration: NSTimeInterval? = nil, position: ToastPosition? = nil, title: String?, image: UIImage?, style: ToastStyle?, completion: ((didTap: Bool) -> Void)?) {
+    guard let view = UIApplication.sharedApplication().keyWindow else { return }
+    let manager = ToastManager.shared
+    view.makeToast(message, duration: duration ?? manager.duration, position: position ?? manager.position, title: title, image: image, style: style, completion: completion)
 }
