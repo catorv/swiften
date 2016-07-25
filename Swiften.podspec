@@ -146,5 +146,6 @@ Pod::Spec.new do |s|
   s.dependency 'Alamofire'
   s.dependency 'AlamofireObjectMapper'
   s.dependency 'AlamofireImage'
+  s.dependency 'Toast-Swift'
 
 end
