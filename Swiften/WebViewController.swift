@@ -29,13 +29,13 @@ public class WebViewController: UIViewController {
 
     public func load(from URL: NSURL) {
         if let webView = webView {
-            load(from: NSURLRequest(URL: URL))
+            load(NSURLRequest(URL: URL))
         } else {
             self.URL = URL
         }
     }
 
-    public func load(from request: NSURLRequest) {
+    public func load(request: NSURLRequest) {
         webView.loadRequest(request)
     }
 
