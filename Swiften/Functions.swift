@@ -81,8 +81,18 @@ public func prompt(message: String, title: String! = nil, text: String! = nil, p
     UIViewController.topViewController?.presentViewController(controller, animated: true, completion: nil)
 }
 
-public func toast(message: String?, duration: NSTimeInterval? = nil, position: ToastPosition? = nil, title: String?, image: UIImage?, style: ToastStyle?, completion: ((didTap: Bool) -> Void)?) {
-    guard let view = UIApplication.sharedApplication().keyWindow else { return }
+public func toast(message: String?, in view: UIView? = nil, duration: NSTimeInterval? = nil, position: ToastPosition? = nil, title: String?, image: UIImage?, style: ToastStyle?, completion: ((didTap: Bool) -> Void)?) {
+    guard let view = view ?? UIApplication.sharedApplication().keyWindow else { return }
     let manager = ToastManager.shared
     view.makeToast(message, duration: duration ?? manager.duration, position: position ?? manager.position, title: title, image: image, style: style, completion: completion)
+}
+
+public func spin(at position: ToastPosition = .Center, in view: UIView? = nil) {
+    guard let view = view ?? UIApplication.sharedApplication().keyWindow else { return }
+    view.makeToastActivity(position)
+}
+
+public func spin(at position: CGPoint, in view: UIView? = nil) {
+    guard let view = view ?? UIApplication.sharedApplication().keyWindow else { return }
+    view.makeToastActivity(position)
 }
