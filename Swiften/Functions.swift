@@ -30,12 +30,8 @@ public func async(mainTask: () -> Void) {
 }
 
 /// 顺序执行代码块（在队列中执行）
-public func sync(inQueue queueName: String? = nil, task: () -> Void) {
-    if let name = queueName {
-        dispatch_sync(dispatch_queue_create(name, nil), task)
-    } else {
-        dispatch_sync(dispatch_get_main_queue(), task)
-    }
+public func sync(task: () -> Void) {
+    dispatch_sync(dispatch_queue_create("com.catorv.LockQueue", nil), task)
 }
 
 public func alert(message: String, title: String! = nil, completion: (() -> Void)? = nil) {
