@@ -22,17 +22,21 @@ public class WebViewController: UIViewController {
         }
 
         if let URL = URL {
-            webView!.loadRequest(NSURLRequest(URL: URL))
+            load(fromURL: URL)
             self.URL = nil
         }
     }
 
-    public func loadURL(URL: NSURL) {
+    public func load(fromURL URL: NSURL) {
         if let webView = webView {
-            webView.loadRequest(NSURLRequest(URL: URL))
+            load(fromRequest: NSURLRequest(URL: URL))
         } else {
             self.URL = URL
         }
+    }
+
+    public func load(fromRequest request: NSURLRequest) {
+        webView.loadRequest(request)
     }
 
     // MARK: - Navigation
@@ -68,7 +72,7 @@ extension WebViewController {
     public class func open(URL URL: NSURL?) {
         guard let URL = URL else { return }
         let controller = WebViewController()
-        controller.loadURL(URL)
+        controller.load(fromURL: URL)
         controller.hidesBottomBarWhenPushed = true
         UIViewController.showViewController(controller, animated: true)
     }

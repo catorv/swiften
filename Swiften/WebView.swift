@@ -152,6 +152,10 @@ extension WebView {
         return webView.reload()
     }
 
+    public func reloadFromOrigin() -> WKNavigation? {
+        return webView.reloadFromOrigin()
+    }
+
     public func loadRequest(request: NSURLRequest) -> WKNavigation? {
         return webView.loadRequest(request)
     }
