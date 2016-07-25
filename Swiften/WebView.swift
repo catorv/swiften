@@ -24,9 +24,10 @@ public class WebView: UIView {
         return ua
     }
 
-    public static var defaultConfiguration: WKWebViewConfiguration = {
+    public static var defaultProcessPool = WKProcessPool()
+    public static var defaultConfiguration: WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
-        config.processPool = WKProcessPool()
+        config.processPool = defaultProcessPool
         config.userContentController = UserContentController()
         config.allowsInlineMediaPlayback = true
         if #available(iOS 9.0, *) {
@@ -35,7 +36,7 @@ public class WebView: UIView {
             config.mediaPlaybackRequiresUserAction = false
         }
         return config
-    }()
+    }
 
     // MARK: properties
 
