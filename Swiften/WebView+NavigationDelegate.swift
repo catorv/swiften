@@ -13,7 +13,7 @@ extension WebView: WKNavigationDelegate {
             return
         }
         let urlString = url.absoluteString
-        if urlString.containsString("//itunes.apple.com/") || !urlString.hasPrefix("http://") && !urlString.hasPrefix("https://") {
+        if urlString.containsString("//itunes.apple.com/") || !urlString.hasPrefix("//") && !urlString.hasPrefix("http:") && !urlString.hasPrefix("https:") {
             UIApplication.sharedApplication().openURL(url)
             decisionHandler(.Cancel)
         } else if navigationDelegate != nil && navigationDelegate!.respondsToSelector(#selector(WKNavigationDelegate.webView(_:decidePolicyForNavigationAction:decisionHandler:))) {
