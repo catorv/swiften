@@ -87,12 +87,18 @@ public func toast(message: String?, in view: UIView? = nil, duration: NSTimeInte
     view.makeToast(message, duration: duration ?? manager.duration, position: position ?? manager.position, title: title, image: image, style: style, completion: completion)
 }
 
-public func spin(at position: ToastPosition = .Center, in view: UIView? = nil) {
-    guard let view = view ?? UIApplication.sharedApplication().keyWindow else { return }
+public func spin(in view: UIView, at position: ToastPosition = .Center) {
     view.makeToastActivity(position)
 }
 
-public func spin(at position: CGPoint, in view: UIView? = nil) {
-    guard let view = view ?? UIApplication.sharedApplication().keyWindow else { return }
+public func spin(in view: UIView, at position: CGPoint) {
     view.makeToastActivity(position)
+}
+
+public func spin(in view: UIView, stop: Bool) {
+    if stop {
+        view.hideToastActivity()
+    } else {
+        spin(in: view)
+    }
 }
