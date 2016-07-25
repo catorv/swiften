@@ -16,16 +16,16 @@ extension WebView: WKNavigationDelegate {
         if urlString.containsString("//itunes.apple.com/") || !urlString.hasPrefix("http://") && !urlString.hasPrefix("https://") {
             UIApplication.sharedApplication().openURL(url)
             decisionHandler(.Cancel)
-        } else if respondsToSelector(#selector(WKNavigationDelegate.webView(_:decidePolicyForNavigationAction:decisionHandler:))) {
-            navigationDelegate?.webView?(webView, decidePolicyForNavigationAction: navigationAction, decisionHandler: decisionHandler)
+        } else if navigationDelegate != nil && navigationDelegate!.respondsToSelector(#selector(WKNavigationDelegate.webView(_:decidePolicyForNavigationAction:decisionHandler:))) {
+            navigationDelegate!.webView?(webView, decidePolicyForNavigationAction: navigationAction, decisionHandler: decisionHandler)
         } else {
             decisionHandler(.Allow)
         }
     }
 
     public func webView(webView: WKWebView, decidePolicyForNavigationResponse navigationResponse: WKNavigationResponse, decisionHandler: (WKNavigationResponsePolicy) -> Void) {
-        if respondsToSelector(#selector(WKNavigationDelegate.webView(_:decidePolicyForNavigationResponse:decisionHandler:))) {
-            navigationDelegate?.webView?(webView, decidePolicyForNavigationResponse: navigationResponse, decisionHandler: decisionHandler)
+        if navigationDelegate != nil && navigationDelegate!.respondsToSelector(#selector(WKNavigationDelegate.webView(_:decidePolicyForNavigationResponse:decisionHandler:))) {
+            navigationDelegate!.webView?(webView, decidePolicyForNavigationResponse: navigationResponse, decisionHandler: decisionHandler)
         } else {
             decisionHandler(.Allow)
         }
@@ -64,8 +64,8 @@ extension WebView: WKNavigationDelegate {
     }
 
     public func webView(webView: WKWebView, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
-        if respondsToSelector(#selector(WKNavigationDelegate.webView(_:didReceiveAuthenticationChallenge:completionHandler:))) {
-            navigationDelegate?.webView?(webView, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
+        if navigationDelegate != nil && navigationDelegate!.respondsToSelector(#selector(WKNavigationDelegate.webView(_:didReceiveAuthenticationChallenge:completionHandler:))) {
+            navigationDelegate!.webView?(webView, didReceiveAuthenticationChallenge: challenge, completionHandler: completionHandler)
         } else {
             guard let hostName = webView.URL?.host else {
                 completionHandler(.CancelAuthenticationChallenge, nil);
