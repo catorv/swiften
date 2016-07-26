@@ -9,7 +9,6 @@ target :Swiften do
   pod 'Alamofire'
   pod 'AlamofireObjectMapper'
   pod 'AlamofireImage'
-  pod 'Toast-Swift'
 end
 
 target :SwiftenTests do
@@ -20,5 +19,4 @@ target :SwiftenTests do
   pod 'Alamofire'
   pod 'AlamofireObjectMapper'
   pod 'AlamofireImage'
-  pod 'Toast-Swift'
 end
