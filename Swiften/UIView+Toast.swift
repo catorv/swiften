@@ -402,11 +402,11 @@ public extension UIView {
             if let wrapper = objc_getAssociatedObject(toast, &ToastKeys.Completion) as? ToastCompletionWrapper, completion = wrapper.completion {
                 completion(fromTap)
             }
+        }
 
-            if let nextToast = self.queue.firstObject as? UIView, duration = objc_getAssociatedObject(nextToast, &ToastKeys.Duration) as? NSNumber, position = objc_getAssociatedObject(nextToast, &ToastKeys.Position) as? NSValue {
-                self.queue.removeObjectAtIndex(0)
-                self.showToast(nextToast, duration: duration.doubleValue, position: position.CGPointValue())
-            }
+        if let nextToast = queue.firstObject as? UIView, duration = objc_getAssociatedObject(nextToast, &ToastKeys.Duration) as? NSNumber, position = objc_getAssociatedObject(nextToast, &ToastKeys.Position) as? NSValue {
+            queue.removeObjectAtIndex(0)
+            showToast(nextToast, duration: duration.doubleValue, position: position.CGPointValue())
         }
     }
 
