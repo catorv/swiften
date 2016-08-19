@@ -17,8 +17,8 @@ extension WebView {
         let name = "__AHA_JSSDK"
         let methodKey = "__AHA__METHOD__NAME__"
         
-        var embedService: EmbedService!
-        weak var webView: WebView!
+        public var embedService: EmbedService!
+        public weak var webView: WebView!
         
         override init() {
             super.init()
