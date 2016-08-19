@@ -22,7 +22,7 @@ extension WebView {
 
         public typealias Options = [String: AnyObject]
 
-        private weak var userContentController: UserContentController?
+        public weak var userContentController: UserContentController?
         private var optionsDict = [String: Options]()
 
         public init(userContentController: UserContentController) {
