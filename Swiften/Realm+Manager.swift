@@ -11,7 +11,8 @@ import RealmSwift
 
 extension Realm {
     
-    public static let rootPath = (Realm.Configuration.defaultConfiguration.path! as NSString).stringByDeletingLastPathComponent
+//    public static let rootPath = (Realm.Configuration.defaultConfiguration.path! as NSString).stringByDeletingLastPathComponent
+     public static let rootPath = (Realm.Configuration.defaultConfiguration.fileURL!.path! as NSString).stringByDeletingLastPathComponent
     
     private static var _userRealm: Realm!
     public static var userRealm: Realm {
@@ -38,7 +39,8 @@ extension Realm {
     private static var _sharedRealm: Realm!
     public static var sharedRealm: Realm {
         if _sharedRealm == nil {
-            _sharedRealm = try! Realm(path: "\(rootPath)/shared.realm")
+//            _sharedRealm = try! Realm(path: "\(rootPath)/shared.realm")
+            _sharedRealm = try! Realm(fileURL: NSURL(string:"\(rootPath)/shared.realm")!)
         }
         return _sharedRealm
     }
