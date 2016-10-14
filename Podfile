@@ -8,8 +8,9 @@ target :Swiften do
   pod 'SwiftyJSON’, ‘2.3.2’
   pod 'KeychainSwift', '3.0.16'
   pod 'ObjectMapper'
-  pod 'RealmSwift' 
+  pod 'RealmSwift’, ‘>=0.99.0’
   pod 'Alamofire'
+  pod ‘Realm’,’>=0.99.0’
   pod 'AlamofireObjectMapper'
   pod 'AlamofireImage'
   
@@ -20,8 +21,9 @@ target :SwiftenTests do
   pod 'SwiftyJSON’, ‘2.3.2’
   pod 'KeychainSwift', '3.0.16'
   pod 'ObjectMapper'
-  pod 'RealmSwift' 
+  pod 'RealmSwift’,’>=0.99.0’ 
   pod 'Alamofire'
+  pod ‘Realm’,’>=0.99.0’
   pod 'AlamofireObjectMapper'
   pod 'AlamofireImage'
   
