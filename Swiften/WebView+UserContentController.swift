@@ -25,6 +25,10 @@ extension WebView {
             self.embedService = EmbedService(userContentController: self)
             self.addScriptMessageHandler(self, name: name)
         }
+
+        required public init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
         
         public func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
             if message.name == name {

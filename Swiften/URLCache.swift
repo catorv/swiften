@@ -21,7 +21,7 @@ public class URLCache: NSURLCache {
     public class func activate() {
         // set caching paths
         let cachePath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0]
-        cacheDirectory = NSURL(fileURLWithPath: cachePath).URLByAppendingPathComponent(cacheFolder).absoluteString
+        cacheDirectory = NSURL(fileURLWithPath: cachePath).URLByAppendingPathComponent(cacheFolder)!.absoluteString
         let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: cacheDirectory)
         NSURLCache.setSharedURLCache(urlCache)
     }
@@ -34,7 +34,7 @@ public class URLCache: NSURLCache {
         }
         
         let absoluteString = url.absoluteString
-        if absoluteString.isEmpty {
+        if absoluteString!.isEmpty {
             Log.error("CACHE not allowed for empty URLs")
             return nil
         }
@@ -44,7 +44,7 @@ public class URLCache: NSURLCache {
             return nil
         }
         
-        if request.cachePolicy == .ReloadIgnoringCacheData && !Reachability.isReachable() || absoluteString.hasPrefix("file:") || absoluteString.hasPrefix("data:") {
+        if request.cachePolicy == .ReloadIgnoringCacheData && !Reachability.isReachable() || absoluteString!.hasPrefix("file:") || absoluteString!.hasPrefix("data:") {
             Log.warn("CACHE not allowed for \(url)")
             return nil
         }
