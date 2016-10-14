@@ -139,10 +139,10 @@ Pod::Spec.new do |s|
     'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(SRCROOT)/Swiften/CocoaPods/iphonesimulator'
   }
   # s.dependency "JSONKit", "~> 1.4"
-  s.dependency 'SwiftyJSON’,‘2.3.2’
-  s.dependency 'KeychainSwift', '3.0.16'
+  s.dependency 'SwiftyJSON','2.3.2'
+  s.dependency 'KeychainSwift','3.0.16'
   s.dependency 'ObjectMapper'
-  s.dependency 'RealmSwift', ‘>=0.99.0’
+  s.dependency 'RealmSwift','>=0.99.0'
   s.dependency 'Alamofire'
   s.dependency 'AlamofireObjectMapper'
   s.dependency 'AlamofireImage'
