@@ -6,13 +6,14 @@ use_frameworks!
 target :Swiften do
 
   pod 'SwiftyJSON’, ‘2.3.2’
+   pod 'SwiftyJSON’, ‘2.3.2’
   pod 'KeychainSwift', '3.0.16'
-  pod 'ObjectMapper'
+  pod 'ObjectMapper’,’1.5.0’
   pod 'RealmSwift’, ‘>=0.99.0’
-  pod 'Alamofire'
+  pod 'Alamofire' ,’3.5.1’
   pod ‘Realm’,’>=0.99.0’
-  pod 'AlamofireObjectMapper'
-  pod 'AlamofireImage'
+  pod 'AlamofireObjectMapper’,’3.0.2’
+  pod 'AlamofireImage’,’2.5.0’
   
 end
 
@@ -20,12 +21,12 @@ target :SwiftenTests do
     
   pod 'SwiftyJSON’, ‘2.3.2’
   pod 'KeychainSwift', '3.0.16'
-  pod 'ObjectMapper'
-  pod 'RealmSwift’,’>=0.99.0’ 
-  pod 'Alamofire'
+  pod 'ObjectMapper’,’1.5.0’
+  pod 'RealmSwift’, ‘>=0.99.0’
+  pod 'Alamofire' ,’3.5.1’
   pod ‘Realm’,’>=0.99.0’
-  pod 'AlamofireObjectMapper'
-  pod 'AlamofireImage'
+  pod 'AlamofireObjectMapper’,’3.0.2’
+  pod 'AlamofireImage’,’2.5.0’
   
 end
 
