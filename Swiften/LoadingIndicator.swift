@@ -5,38 +5,39 @@
 
 import Foundation
 
-public class LoadingIndicator {
-    private var count = 0
-    private var view: UIView?
-
-    public func startLoading() {
-        guard let window = UIApplication.sharedApplication().keyWindow else {
-            return
-        }
-        async {
-            if self.count == 0 {
-                if self.view == nil {
-                    self.view = UIView(frame: window.bounds)
-                } else {
-                    self.view!.removeFromSuperview()
-                }
-
-                window.addSubview(self.view!)
-            }
-            self.count += 1
-        }
+open class LoadingIndicator {
+  fileprivate var count = 0
+  fileprivate var view: UIView!
+  
+  open func startLoading() {
+    guard let window = UIApplication.shared.keyWindow else {
+      return
     }
-
-    public func stopLoading() {
-        async {
-            self.count -= 1
-            if self.count <= 0 {
-                self.count = 0
-                guard let loadingView = self.view else {
-                    return
-                }
-                loadingView.removeFromSuperview()
-            }
+    async {
+      if self.count == 0 {
+        if self.view == nil {
+          self.view = UIView(frame: window.bounds)
+          self.view.backgroundColor = UIColor(r: 0, g: 0, b: 0, a: 0.5)
+        } else {
+          self.view.removeFromSuperview()
         }
+        
+        window.addSubview(self.view)
+      }
+      self.count += 1
     }
+  }
+  
+  open func stopLoading() {
+    async {
+      self.count -= 1
+      if self.count <= 0 {
+        self.count = 0
+        guard let loadingView = self.view else {
+          return
+        }
+        loadingView.removeFromSuperview()
+      }
+    }
+  }
 }

@@ -10,9 +10,9 @@ import Foundation
 import ObjectMapper
 
 extension Map {
-    func valueForKey<T>(key: String) -> T? {
-        var value: T?
-        value <- self[key]
-        return value
-    }
+  func value<T>(forKey key: String) -> T? {
+    var value: T?
+    value <- self[key]
+    return value
+  }
 }

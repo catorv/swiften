@@ -10,12 +10,14 @@ import XCTest
 @testable import Swiften
 
 class LogTests: XCTestCase {
-
-    func testLevel() {
-        XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_DEBUG != 0)
-        XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_INFO != 0)
-        XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_WARN != 0)
-        XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_ERROR != 0)
-    }
+  
+  func testLevel() {
+    XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_DEBUG != 0)
+    XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_INFO != 0)
+    XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_WARN != 0)
+    XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_ERROR != 0)
     
+    Log.debug("xxxxxx")
+  }
+  
 }

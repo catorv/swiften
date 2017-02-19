@@ -8,45 +8,45 @@
 
 import Foundation
 
-public class ActionSheetController: UIViewController {
-
-    @IBOutlet public var popupView: UIView!
-    var dismissButton: UIButton!
-
-    public func presentOverViewController(viewController: UIViewController) {
-        modalPresentationStyle = .OverFullScreen
-        view.backgroundColor = UIColor(rgba: 0x00000000)
-
-        dismissButton = UIButton()
-        dismissButton.addTarget(self, action: #selector(onDismiss(_:)), forControlEvents: .TouchUpInside)
-        dismissButton.frame = view.bounds
-        dismissButton.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        view.insertSubview(dismissButton, atIndex: 0)
-
-        popupView.alpha = 0
-        viewController.presentViewController(self, animated: false) { [weak popupView, weak view] in
-            guard let view = view, popupView = popupView else { return }
-            let originFrame = popupView.frame
-            popupView.frame = CGRect(origin: CGPoint(x: 0, y: view.bounds.size.height), size: originFrame.size)
-            UIView.animateWithDuration(0.25, animations: {
-                view.backgroundColor = UIColor(rgba: 0x00000066)
-                popupView.alpha = 1
-                popupView.frame = originFrame
-            })
-        }
+open class ActionSheetController: UIViewController {
+  
+  @IBOutlet open var popupView: UIView!
+  var dismissButton: UIButton!
+  
+  open func presentOverViewController(_ viewController: UIViewController) {
+    modalPresentationStyle = .overFullScreen
+    view.backgroundColor = UIColor(rgba: 0x00000000)
+    
+    dismissButton = UIButton()
+    dismissButton.addTarget(self, action: #selector(onDismiss(_:)), for: .touchUpInside)
+    dismissButton.frame = view.bounds
+    dismissButton.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    view.insertSubview(dismissButton, at: 0)
+    
+    popupView.alpha = 0
+    viewController.present(self, animated: false) { [weak popupView, weak view] in
+      guard let view = view, let popupView = popupView else { return }
+      let originFrame = popupView.frame
+      popupView.frame = CGRect(origin: CGPoint(x: 0, y: view.bounds.size.height), size: originFrame.size)
+      UIView.animate(withDuration: 0.25, animations: {
+        view.backgroundColor = UIColor(rgba: 0x00000066)
+        popupView.alpha = 1
+        popupView.frame = originFrame
+      })
     }
-
-    func onDismiss(sender: UIButton) {
-        self.dismissActionSheetController()
-    }
-
-    public func dismissActionSheetController(completion: (() -> Void)? = nil) {
-        UIView.transitionWithView (self.popupView, duration: 0.25, options: .BeginFromCurrentState, animations: {
-            self.view.backgroundColor = UIColor(rgba: 0x00000000)
-//            self.popupView.alpha = 0
-            self.popupView.frame = CGRect(origin: CGPoint(x: 0, y: self.view.bounds.size.height), size: self.popupView.frame.size)
-            }, completion: { (finished) in
-            self.dismissViewControllerAnimated(false, completion: completion)
-        })
-    }
+  }
+  
+  func onDismiss(_ sender: UIButton) {
+    self.dismissActionSheetController()
+  }
+  
+  open func dismissActionSheetController(_ completion: (() -> Void)? = nil) {
+    UIView.transition (with: self.popupView, duration: 0.25, options: .beginFromCurrentState, animations: {
+      self.view.backgroundColor = UIColor(rgba: 0x00000000)
+      //            self.popupView.alpha = 0
+      self.popupView.frame = CGRect(origin: CGPoint(x: 0, y: self.view.bounds.size.height), size: self.popupView.frame.size)
+    }, completion: { (finished) in
+      self.dismiss(animated: false, completion: completion)
+    })
+  }
 }

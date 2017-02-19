@@ -9,9 +9,9 @@
 import Foundation
 
 public struct Swizzler {
-    public static func swizzleMethod(selector: Selector, with swizzledSelector: Selector, forClass: AnyClass!) {
-        let originalMethod = class_getInstanceMethod(forClass, selector)
-        let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector)
-        method_exchangeImplementations(originalMethod, swizzledMethod)
-    }
+  public static func swizzleMethod(_ selector: Selector, with swizzledSelector: Selector, forClass: AnyClass!) {
+    let originalMethod = class_getInstanceMethod(forClass, selector)
+    let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector)
+    method_exchangeImplementations(originalMethod, swizzledMethod)
+  }
 }

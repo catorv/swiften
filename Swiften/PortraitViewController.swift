@@ -9,13 +9,13 @@
 import Foundation
 
 class PortraitViewController: UIViewController {
-    
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .Portrait
-    }
-    
+  
+  override var shouldAutorotate : Bool {
+    return false
+  }
+  
+  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    return .portrait
+  }
+  
 }

@@ -29,12 +29,12 @@ class RestTests: XCTestCase {
     }
     
     func testGet() {
-        let expectation = expectationWithDescription("Rest request")
+        let expectation = self.expectation(description: "Rest request")
         request?.get { (response: RestResponse<RestBaseModel>) in
             XCTAssertTrue(response.isOK)
             expectation.fulfill()
         }
-        waitForExpectationsWithTimeout(30) { (error) in
+        waitForExpectations(timeout: 30) { (error) in
             XCTAssertNil(error)
             if error != nil {
                 Log.error(error)

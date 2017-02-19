@@ -8,8 +8,12 @@
 
 import Foundation
 
-public let session = Session()
-
+fileprivate var needsInitFramework = true
 public func initFramework() {
-    UIView.swizzle()
+  guard needsInitFramework else {
+    return
+  }
+  needsInitFramework = false
+  
+  UIView.swizzle()
 }

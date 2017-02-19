@@ -6,24 +6,24 @@
 import Foundation
 
 public enum MIMEType: String {
-    case json = "application/json"
-    case html = "text/xml"
-    case xml = "text/html"
-    case text = "text/plain"
-    case unknown = "application/octet-stream"
-
-    public var string: String {
-        return self.rawValue
+  case json = "application/json"
+  case html = "text/xml"
+  case xml = "text/html"
+  case text = "text/plain"
+  case unknown = "application/octet-stream"
+  
+  public var string: String {
+    return self.rawValue
+  }
+  
+  public static func fromString(_ mime: String) -> MIMEType {
+    let all: [MIMEType] = [.json, .html, .xml, .text]
+    for item in all {
+      if mime == item.rawValue {
+        return item
+      }
     }
-
-    public static func fromString(mime: String) -> MIMEType {
-        let all: [MIMEType] = [.json, .html, .xml, .text]
-        for item in all {
-            if mime == item.rawValue {
-                return item
-            }
-        }
-        return .unknown
-    }
-
+    return .unknown
+  }
+  
 }

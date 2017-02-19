@@ -5,9 +5,9 @@
 
 import Foundation
 
-public enum RestError: ErrorType {
-    case httpRequestError(status:Int)
-    case resultError(code:Int, message:String)
-    case dataError
-    case networkError
+public enum RestError: Error {
+  case httpRequestError(statusCode: Int)
+  case resultError(code: Int, message: String)
+  case dataError
+  case networkError
 }

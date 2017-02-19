@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "Swiften"
-  s.version      = "0.0.5"
+  s.version      = "0.1.0"
   s.summary      = "A short description of Swiften."
 
   # This description is used to generate tags and improve search results.
@@ -139,12 +139,12 @@ Pod::Spec.new do |s|
     'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(SRCROOT)/Swiften/CocoaPods/iphonesimulator'
   }
   # s.dependency "JSONKit", "~> 1.4"
-  s.dependency 'SwiftyJSON','2.3.2'
-  s.dependency 'KeychainSwift','3.0.16'
-  s.dependency 'ObjectMapper'
-  s.dependency 'RealmSwift','>=0.99.0'
-  s.dependency 'Alamofire'
-  s.dependency 'AlamofireObjectMapper'
-  s.dependency 'AlamofireImage'
+  s.dependency 'Alamofire', '~> 4.3'
+  s.dependency 'AlamofireImage', '~> 3.2'
+  s.dependency 'AlamofireObjectMapper', '~> 4.0'
+  s.dependency 'KeychainSwift', '~> 7.0'
+  s.dependency 'ObjectMapper', '~> 2.2'
+  s.dependency 'RealmSwift', '~> 2.4'
+  s.dependency 'SwiftyJSON', '~> 3.1'
 
 end

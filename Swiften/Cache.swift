@@ -7,138 +7,120 @@
 //
 
 import Foundation
-import Realm
-import Realm.Private
-import RealmSwift
 import ObjectMapper
+
+// MARK: - CacheValue
+
+public protocol CacheValue {
+  var key: String { get set }
+  var value: String { get set }
+  var expires: TimeInterval { get set }
+  var isValid: Bool { get }
+}
 
 // MARK: - Cachable
 
 public protocol Cachable {
-    func value(forKey key: String) -> CacheItem?
-    func setValue(value: CacheItem)
-
-    func string(forKey key: String) -> String?
-    func setString(value: String, forKey key: String, expires: Double?)
-
-    func remove(forKey key: String)
-    func clear()
-}
-
-// MARK: - CacheItem
-
-public class CacheItem: Object {
-    dynamic var key: String?
-    dynamic var value: String?
-    dynamic var expires: Double = 0.0
-
-    // 主键
-    override public static func primaryKey() -> String? {
-        return "key"
-    }
-
-    var isValid: Bool {
-        return self.expires > NSDate.timeIntervalSinceReferenceDate()
-    }
-}
-
-extension CacheItem {
-    public static let em = RealmEntityManager<CacheItem>(realm: Realm.sharedRealm)
+  
+  associatedtype Value: CacheValue
+  
+  func value(forKey key: String) -> Value?
+  func set(value: Value)
+  
+  func string(forKey key: String) -> String?
+  func set(string value: String, forKey key: String, expires: TimeInterval)
+  
+  func remove(forKey key: String)
+  func clear()
 }
 
 // MARK: - CacheManager
 
-class CacheManager {
+open class CacheManager<C: Cachable> {
+  
+  public let cachable: C
+  
+  public init(_ cachable: C) {
+    self.cachable = cachable
+  }
 
-    let cachable: Cachable
-
-    init(cachable: Cachable) {
-        self.cachable = cachable
+  // MARK: - Methods
+  
+  public func object<T: Mappable>(forKey key: String) -> T? {
+    guard let jsonString = cachable.string(forKey: key) else {
+      return nil
     }
-
-    // MARK: - Methods
-    
-    func object<T: Mappable>(forKey key: String) -> T? {
-        guard let content: String = cachable.string(forKey: key) else { return nil }
-        return Mapper<T>().map(content)
+    return Mapper<T>().map(JSONString: jsonString)
+  }
+  
+  public func set<T: Mappable>(object: T, forKey key: String, expires: Double = 0.0) {
+    guard let jsonString = Mapper<T>().toJSONString(object) else {
+      return
     }
-
-    func setObject<T: Mappable>(object: T, forKey key: String, expires: Double? = nil) {
-        guard let jsonString = Mapper<T>().toJSONString(object) else { return }
-        cachable.setString(jsonString, forKey: key, expires: expires)
+    cachable.set(string: jsonString, forKey: key, expires: expires)
+  }
+  
+  public func remove(forKey key: String) {
+    cachable.remove(forKey: key)
+  }
+  
+  public func clear() {
+    cachable.clear()
+  }
+  
+  // MARK: - Subscript
+  
+  public subscript(key: String) -> String? {
+    get {
+      return cachable.string(forKey: key)
     }
-    
-    func remove(forKey key: String) {
+    set {
+      if let string = newValue {
+        cachable.set(string: string, forKey: key, expires: 0.0)
+      } else {
         cachable.remove(forKey: key)
+      }
     }
-
-    // MARK: - Subscript
-
-    subscript(key: String) -> CacheItem? {
-        get {
-            return cachable.value(forKey: key)
-        }
-        set {
-            if let value = newValue {
-                value.key = key
-                cachable.setValue(value)
-            }
-        }
+  }
+  
+  public subscript(key: String) -> Int? {
+    get {
+      return cachable.string(forKey: key)?.intValue
     }
-
-    subscript(key: String) -> String? {
-        get {
-            return cachable.string(forKey: key)
-        }
-        set {
-            if let string = newValue {
-                cachable.setString(string, forKey: key, expires: nil)
-            }
-        }
+    set {
+      if let value = newValue {
+        cachable.set(string: String(value), forKey: key, expires: 0.0)
+      } else {
+        cachable.remove(forKey: key)
+      }
     }
-
-    subscript(key: String) -> Int? {
-        get {
-            return cachable.string(forKey: key)?.integer
-        }
-        set {
-            if let string = newValue?.string {
-                cachable.setString(string, forKey: key, expires: nil)
-            }
-        }
+  }
+  
+  public subscript(key: String) -> Double? {
+    get {
+      return cachable.string(forKey: key)?.doubleValue
     }
-    
-    subscript(key: String) -> Float? {
-        get {
-            return cachable.string(forKey: key)?.float
-        }
-        set {
-            if let string = newValue?.string {
-                cachable.setString(string, forKey: key, expires: nil)
-            }
-        }
+    set {
+      if let value = newValue {
+        cachable.set(string: String(value), forKey: key, expires: 0.0)
+      } else {
+        cachable.remove(forKey: key)
+      }
     }
-    
-    subscript(key: String) -> Double? {
-        get {
-            return cachable.string(forKey: key)?.double
-        }
-        set {
-            if let string = newValue?.string {
-                cachable.setString(string, forKey: key, expires: nil)
-            }
-        }
+  }
+  
+  public subscript(key: String) -> Bool? {
+    get {
+      return cachable.string(forKey: key)?.boolValue
     }
-    
-    subscript(key: String) -> Bool? {
-        get {
-            return cachable.string(forKey: key)?.bool
-        }
-        set {
-            if let string = newValue?.string {
-                cachable.setString(string, forKey: key, expires: nil)
-            }
-        }
+    set {
+      if let value = newValue {
+        cachable.set(string: String(value), forKey: key, expires: 0.0)
+      } else {
+        cachable.remove(forKey: key)
+      }
     }
-    
+  }
+  
 }
+

@@ -7,20 +7,22 @@
 //
 
 import XCTest
-@testable import Swiften
+import Swiften
+import ReachabilitySwift
 
 class ReachabilityTests: XCTestCase {
-
-    func testReachable() {
-        XCTAssertEqual(Reachability.networkStatus, Reachability.NetworkStatus.reachableViaWiFi)
-        
-        XCTAssertEqual(Reachability.NetworkStatus.reachableViaWiFi.description, "WiFi")
-        XCTAssertEqual(Reachability.NetworkStatus.reachableViaWWAN.description, "WWAN")
-        XCTAssertEqual(Reachability.NetworkStatus.notReachable.description, "NoConnection")
-        
-        XCTAssertTrue(Reachability.isReachable())
-        XCTAssertTrue(Reachability.isReachableViaWiFi())
-        XCTAssertFalse(Reachability.isReachableViaWWAN())
+  
+  func testReachable() {
+    guard let reachability = Reachability() else {
+      XCTAssertTrue(false)
+      return
     }
-
+    
+    XCTAssertEqual(reachability.currentReachabilityStatus, Reachability.NetworkStatus.reachableViaWiFi)
+    
+    XCTAssertTrue(reachability.isReachable)
+    XCTAssertTrue(reachability.isReachableViaWiFi)
+    XCTAssertFalse(reachability.isReachableViaWWAN)
+  }
+  
 }

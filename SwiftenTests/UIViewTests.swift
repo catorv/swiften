@@ -7,13 +7,13 @@
 //
 
 import XCTest
-@testable import Swiften
+import Swiften
 
 class CustomView: UIView {
-    override func setupView() {
-        self.tag = 100
-        Log.debug("###################################")
-    }
+  override func setupView() {
+    self.tag = 100
+    Log.debug("#########################")
+  }
 }
 
 //extension UIView {
@@ -25,14 +25,15 @@ class CustomView: UIView {
 //}
 
 class UIViewTests: XCTestCase {
-
-    override func setUp() {
-        Swiften.initFramework()
-    }
-
-    func testPerformanceExample() {
-        let view = CustomView()
-        XCTAssertEqual(view.tag, 100)
-    }
-
+  
+  override func setUp() {
+    Swiften.initFramework()
+    Swiften.initFramework()
+  }
+  
+  func testPerformanceExample() {
+    let view = CustomView()
+    XCTAssertEqual(view.tag, 100)
+  }
+  
 }

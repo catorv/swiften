@@ -8,79 +8,74 @@
 
 import Foundation
 
-public class LocalStorage {
-    private var defaults = NSUserDefaults.standardUserDefaults()
-    private var autoCommit = true
-
-    public func setObject(object: AnyObject?, forKey key: String) {
-        if object == nil {
-            defaults.removeObjectForKey(key)
-            return
-        }
-        
-        defaults.setObject(object!, forKey: key)
-        if autoCommit {
-            defaults.synchronize()
-        }
+open class LocalStorage {
+  private let defaults = UserDefaults.standard
+  private var autoCommit = true
+  
+  open func set(_ value: Any?, forKey key: String) {
+    defaults.set(value, forKey: key)
+    if autoCommit {
+      defaults.synchronize()
     }
-    
-    public func object(forKey key: String) -> AnyObject? {
-        return defaults.objectForKey(key)
-    }
-    
-    public func integer(forKey key: String) -> Int {
-        return defaults.integerForKey(key)
-    }
-    
-    public func float(forKey key: String) -> Float {
-        return defaults.floatForKey(key)
-    }
-    
-    public func double(forKey key: String) -> Double {
-        return defaults.doubleForKey(key)
-    }
-    
-    public func string(forKey key: String) -> String? {
-        return defaults.stringForKey(key)
-    }
-    
-    public func string(forKey key: String, defaultValue: String) -> String {
-        if let result = defaults.stringForKey(key) {
-            return result
-        } else {
-            return defaultValue
-        }
-    }
-    
-    public func array(forKey key: String) -> [AnyObject]? {
-        return defaults.arrayForKey(key)
-    }
-    
-    public func dictionary(forKey key: String) -> [String: AnyObject]? {
-        return defaults.dictionaryForKey(key)
-    }
-    
-    public func date(forKey key: String) -> NSDate! {
-        var result = defaults.objectForKey(key) as? NSDate
-        
-        if result == nil {
-            result = NSDate.distantPast()
-        }
-        
-        return result!
-    }
-    
-    public func reset() {
-        NSUserDefaults.resetStandardUserDefaults()
-    }
-    
-    public func begin() {
-        autoCommit = false
-    }
-    
-    public func commit() {
-        defaults.synchronize()
-        autoCommit = true
-    }
-
+  }
+  
+  open func object<T>(forKey key: String) -> T? {
+    return defaults.object(forKey: key) as? T
+  }
+  
+  open func string(forKey key: String) -> String? {
+    return defaults.string(forKey: key)
+  }
+  
+  open func data(forKey key: String) -> Data? {
+    return defaults.data(forKey: key)
+  }
+  
+  open func int(forKey key: String) -> Int {
+    return defaults.integer(forKey: key)
+  }
+  
+  open func float(forKey key: String) -> Float {
+    return defaults.float(forKey: key)
+  }
+  
+  open func double(forKey key: String) -> Double {
+    return defaults.double(forKey: key)
+  }
+  
+  open func bool(forKey key: String) -> Bool {
+    return defaults.bool(forKey: key)
+  }
+  
+  open func url(forKey key: String) -> URL? {
+    return defaults.url(forKey: key)
+  }
+  
+  open func array<T>(forKey key: String) -> [T]? {
+    return defaults.array(forKey: key) as? [T]
+  }
+  
+  open func dictionary<T>(forKey key: String) -> [String: T]? {
+    return defaults.dictionary(forKey: key) as? [String: T]
+  }
+  
+  open func date(forKey key: String) -> Date? {
+    return defaults.object(forKey: key) as? Date
+  }
+  
+  open func removeObject(forKey key: String) {
+    defaults.removeObject(forKey: key)
+  }
+  
+  open func reset() {
+    UserDefaults.resetStandardUserDefaults()
+  }
+  
+  open func write(callback: () -> Void) {
+    autoCommit = false
+    callback()
+    defaults.synchronize()
+    autoCommit = true
+  }
+  
 }

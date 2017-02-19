@@ -8,8 +8,8 @@
 
 import Foundation
 
-public class Rest {
-    public static var responseCodeField = "code"
-    public static var responseMessageField = "msg"
-    public static var responseErrorMessageField = "errmsg"
+open class Rest {
+  open static var responseCodeField = "code"
+  open static var responseMessageField = "msg"
+  open static var responseErrorMessageField = "msg"
 }

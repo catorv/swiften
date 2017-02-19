@@ -8,30 +8,32 @@
 
 import Foundation
 
-public class VerticalButton: UIButton {
-
-    public var gap: CGFloat = 5
-
-    override public func layoutSubviews() {
-        super.layoutSubviews()
-
-        guard let imageView = imageView, titleLabel = titleLabel else { return }
-
-        let marginTop = (frame.size.height - imageView.frame.size.height - titleLabel.frame.size.height - gap) / 2
-
-        var center = imageView.center
-        center.x = frame.size.width / 2
-        center.y = imageView.frame.size.height / 2 + marginTop
-        imageView.center = center
-
-        // Center text
-        var newFrame = titleLabel.frame
-        newFrame.origin.x = 0
-        newFrame.origin.y = imageView.frame.size.height + gap + marginTop
-        newFrame.size.width = frame.size.width
-
-        titleLabel.frame = newFrame
-        titleLabel.textAlignment = .Center
+open class VerticalButton: UIButton {
+  
+  open var gap: CGFloat = 5
+  
+  override open func layoutSubviews() {
+    super.layoutSubviews()
+    
+    guard let imageView = imageView, let titleLabel = titleLabel else {
+      return
     }
-
+    
+    let marginTop = (frame.size.height - imageView.frame.size.height - titleLabel.frame.size.height - gap) / 2
+    
+    var center = imageView.center
+    center.x = frame.size.width / 2
+    center.y = imageView.frame.size.height / 2 + marginTop
+    imageView.center = center
+    
+    // Center text
+    var newFrame = titleLabel.frame
+    newFrame.origin.x = 0
+    newFrame.origin.y = imageView.frame.size.height + gap + marginTop
+    newFrame.size.width = frame.size.width
+    
+    titleLabel.frame = newFrame
+    titleLabel.textAlignment = .center
+  }
+  
 }

@@ -7,93 +7,100 @@
 //
 
 import Foundation
+import Toast_Swift
 
-/// 延迟执行代码
-public func delay(seconds: UInt64, task: () -> Void) {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), task)
+/// 延迟执行代码（秒）
+public func delay(seconds: Int, task: @escaping () -> Void) {
+  DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds), execute: task)
+}
+
+/// 延迟执行代码（毫秒）
+public func delay(milliseconds ms: Int, task: @escaping () -> Void) {
+  DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(ms), execute: task)
 }
 
 /// 异步执行代码块（先非主线程执行，再返回主线程执行）
-public func async(backgroundTask: () -> AnyObject!, mainTask: AnyObject? -> Void) {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-        let result = backgroundTask()
-        dispatch_sync(dispatch_get_main_queue()) {
-            mainTask(result)
-        }
+public func async(backgroundTask: @escaping () -> AnyObject?, mainTask: @escaping (AnyObject?) -> Void) {
+  DispatchQueue.global().async {
+    let result = backgroundTask()
+    DispatchQueue.main.sync {
+      mainTask(result)
     }
+  }
 }
 
 /// 异步执行代码块（主线程执行）
-public func async(mainTask: () -> Void) {
-    dispatch_async(dispatch_get_main_queue(), mainTask)
+public func async(mainTask: @escaping () -> Void) {
+  DispatchQueue.main.async(execute: mainTask)
 }
 
 /// 顺序执行代码块（在队列中执行）
 public func sync(task: () -> Void) {
-    dispatch_sync(dispatch_queue_create("com.catorv.LockQueue", nil), task)
+  DispatchQueue(label: "com.catorv.LockQueue", attributes: []).sync(execute: task)
 }
 
-public func alert(message: String, title: String! = nil, completion: (() -> Void)? = nil) {
-    let controller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-    controller.addAction(UIAlertAction(title: "我知道了", style: .Default) { action in
-        controller.dismissViewControllerAnimated(true, completion: nil)
-        completion?()
-        })
-    UIViewController.topViewController?.presentViewController(controller, animated: true, completion: nil)
+public func alert(_ message: String, title: String? = nil, buttonTitle: String = "我知道了", completion: (() -> Void)? = nil) {
+  let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+  controller.addAction(UIAlertAction(title: buttonTitle, style: .default) { action in
+    controller.dismiss(animated: true, completion: completion)
+  })
+  UIViewController.topViewController?.present(controller, animated: true, completion: nil)
 }
 
-public func confirm(message: String, title: String! = nil, completion: Bool -> Void) {
-    let controller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-    controller.addAction(UIAlertAction(title: "否", style: .Cancel) { action in
-        controller.dismissViewControllerAnimated(true, completion: nil)
-        completion(false)
-        })
-    controller.addAction(UIAlertAction(title: "是", style: .Default) { action in
-        controller.dismissViewControllerAnimated(true, completion: nil)
-        completion(true)
-        })
-    UIViewController.topViewController?.presentViewController(controller, animated: true, completion: nil)
+public func confirm(_ message: String, title: String! = nil, completion: @escaping (Bool) -> Void) {
+  let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+  controller.addAction(UIAlertAction(title: "否", style: .cancel) { action in
+    controller.dismiss(animated: true, completion: nil)
+    completion(false)
+  })
+  controller.addAction(UIAlertAction(title: "是", style: .default) { action in
+    controller.dismiss(animated: true, completion: nil)
+    completion(true)
+  })
+  UIViewController.topViewController?.present(controller, animated: true, completion: nil)
 }
 
-public func prompt(message: String, title: String! = nil, text: String! = nil, placeholder: String! = nil, completion: String? -> Void) {
-    let controller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-    controller.addAction(UIAlertAction(title: "取消", style: .Cancel) { action in
-        controller.dismissViewControllerAnimated(true, completion: nil)
-        completion(nil)
-        })
-    controller.addAction(UIAlertAction(title: "确定", style: .Default) { action in
-        controller.dismissViewControllerAnimated(true, completion: nil)
-        completion(controller.textFields?[0].text ?? "")
-        })
-    controller.addTextFieldWithConfigurationHandler { textField in
-        if let value = text {
-            textField.text = value
-        }
-        if let ph = placeholder {
-            textField.placeholder = ph
-        }
+public func prompt(_ message: String, title: String! = nil, text: String! = nil, placeholder: String! = nil, completion: @escaping (String?) -> Void) {
+  let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+  controller.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+    controller.dismiss(animated: true, completion: nil)
+    completion(nil)
+  })
+  controller.addAction(UIAlertAction(title: "确定", style: .default) { action in
+    controller.dismiss(animated: true, completion: nil)
+    completion(controller.textFields?[0].text ?? "")
+  })
+  controller.addTextField { textField in
+    if let value = text {
+      textField.text = value
     }
-    UIViewController.topViewController?.presentViewController(controller, animated: true, completion: nil)
+    if let placeholder = placeholder {
+      textField.placeholder = placeholder
+    }
+  }
+  UIViewController.topViewController?.present(controller, animated: true, completion: nil)
 }
 
-public func toast(message: String?, in view: UIView? = nil, duration: NSTimeInterval? = nil, position: ToastPosition? = nil, title: String? = nil, image: UIImage? = nil, style: ToastStyle? = nil, completion: ((didTap: Bool) -> Void)? = nil) {
-    guard let view = view ?? UIApplication.sharedApplication().keyWindow else { return }
-    let manager = ToastManager.shared
-    view.makeToast(message, duration: duration ?? manager.duration, position: position ?? manager.position, title: title, image: image, style: style, completion: completion)
+public func toast(_ message: String?, in view: UIView? = nil, duration: TimeInterval? = nil, position: ToastPosition? = nil, title: String? = nil, image: UIImage? = nil, style: ToastStyle? = nil, completion: ((_ didTap: Bool) -> Void)? = nil) {
+  guard let view = view ?? UIApplication.shared.keyWindow else {
+    return
+  }
+  let manager = ToastManager.shared
+  view.makeToast(message, duration: duration ?? manager.duration, position: position ?? manager.position, title: title, image: image, style: style, completion: completion)
 }
 
-public func spin(in view: UIView, at position: ToastPosition = .Center) {
-    view.makeToastActivity(position)
+public func spin(in view: UIView, at position: ToastPosition = .center) {
+  view.makeToastActivity(position)
 }
 
 public func spin(in view: UIView, at position: CGPoint) {
-    view.makeToastActivity(position)
+  view.makeToastActivity(position)
 }
 
 public func spin(in view: UIView, stop: Bool) {
-    if stop {
-        view.hideToastActivity()
-    } else {
-        spin(in: view)
-    }
+  if stop {
+    view.hideToastActivity()
+  } else {
+    spin(in: view)
+  }
 }

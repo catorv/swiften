@@ -8,72 +8,76 @@
 
 import Foundation
 
-public class WebViewController: UIViewController {
-    @IBOutlet public var webView: WebView!
-
-    private var URL: NSURL!
-
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-
-        if webView == nil {
-            webView = WebView(frame: view.bounds)
-            view.addSubview(webView!)
-        }
-
-        if let URL = URL {
-            load(from: URL)
-            self.URL = nil
-        }
+open class WebViewController: UIViewController {
+  @IBOutlet open var webView: WebView!
+  
+  fileprivate var url: Foundation.URL!
+  
+  override open func viewDidLoad() {
+    super.viewDidLoad()
+    
+    if webView == nil {
+      webView = WebView(frame: view.bounds)
+      view.addSubview(webView!)
     }
-
-    public func load(from URL: NSURL) {
-        if webView != nil {
-            load(NSURLRequest(URL: URL))
-        } else {
-            self.URL = URL
-        }
+    
+    if let url = url {
+      load(from: url)
+      self.url = nil
     }
-
-    public func load(request: NSURLRequest) {
-        webView.loadRequest(request)
+  }
+  
+  open func load(from url: Foundation.URL) {
+    if webView != nil {
+      load(URLRequest(url: url))
+    } else {
+      self.url = url
     }
-
-    // MARK: - Navigation
-
-    public func close() {
-        self.closeViewControllerAnimated(true)
+  }
+  
+  open func load(_ request: URLRequest) {
+    let _ = webView.loadRequest(request)
+  }
+  
+  // MARK: - Navigation
+  
+  open func close() {
+    self.hide(animated: true)
+  }
+  
+  open func back() {
+    guard let webView = webView?.webView else { return }
+    if webView.canGoBack {
+      webView.goBack()
+    } else {
+      close()
     }
-
-    public func back() {
-        guard let webView = webView?.webView else { return }
-        if webView.canGoBack {
-            webView.goBack()
-        } else {
-            close()
-        }
+  }
+  
+  open func forward() {
+    guard let webView = webView?.webView else { return }
+    if webView.canGoForward {
+      webView.goForward()
     }
-
-    public func forward() {
-        guard let webView = webView?.webView else { return }
-        if webView.canGoForward {
-            webView.goForward()
-        }
-    }
-
+  }
+  
 }
 
 extension WebViewController {
-    public class func open(urlString urlString: String?) {
-        guard let urlString = urlString else { return }
-        open(URL: NSURL(string: urlString))
+  public class func open(urlString: String?) {
+    guard let urlString = urlString else {
+      return
     }
-
-    public class func open(URL URL: NSURL?) {
-        guard let URL = URL else { return }
-        let controller = WebViewController()
-        controller.load(from: URL)
-        controller.hidesBottomBarWhenPushed = true
-        UIViewController.showViewController(controller, animated: true)
+    open(url: URL(string: urlString))
+  }
+  
+  public class func open(url: URL?) {
+    guard let url = url else {
+      return
     }
+    let controller = WebViewController()
+    controller.load(from: url)
+    controller.hidesBottomBarWhenPushed = true
+    UIViewController.show(viewController: controller, animated: true)
+  }
 }
