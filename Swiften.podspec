@@ -144,7 +144,9 @@ Pod::Spec.new do |s|
   s.dependency 'AlamofireObjectMapper', '~> 4.0'
   s.dependency 'KeychainSwift', '~> 7.0'
   s.dependency 'ObjectMapper', '~> 2.2'
+  s.dependency 'ReachabilitySwift', '~> 3'
   s.dependency 'RealmSwift', '~> 2.4'
   s.dependency 'SwiftyJSON', '~> 3.1'
+  s.dependency 'Toast-Swift', '~> 2.0.0'
 
 end
