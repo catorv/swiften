@@ -12,10 +12,10 @@ import XCTest
 class LogTests: XCTestCase {
   
   func testLevel() {
-    XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_DEBUG != 0)
-    XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_INFO != 0)
-    XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_WARN != 0)
-    XCTAssertTrue(Log.LEVEL_ALL & Log.LEVEL_ERROR != 0)
+    XCTAssertLessThan(Log.LEVEL_NONE, Log.LEVEL_ERROR)
+    XCTAssertLessThan(Log.LEVEL_ERROR, Log.LEVEL_WARN)
+    XCTAssertLessThan(Log.LEVEL_WARN, Log.LEVEL_INFO)
+    XCTAssertLessThan(Log.LEVEL_INFO, Log.LEVEL_DEBUG)
     
     Log.debug("xxxxxx")
   }

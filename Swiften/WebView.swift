@@ -14,13 +14,27 @@ open class WebView: UIView {
   
   // MARK:- statics
   
-  fileprivate static var _userAgent: String!
+  open static var appName = "Vee"
+  
+  private static var _userAgent: String!
   open static var userAgent: String {
     if _userAgent == nil {
       _userAgent = UIWebView().stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
     }
-    let netType = Reachability()?.currentReachabilityStatus.description ?? "Unknown"
-    let ua = "\(_userAgent) Aha/\(App.version) NetType/\(netType) Language/\(App.lang)"
+    let netType: String
+    if let reachabilityStatus = Reachability()?.currentReachabilityStatus {
+      switch reachabilityStatus {
+      case .reachableViaWiFi:
+        netType = "WiFi"
+      case .reachableViaWWAN:
+        netType = "WWAN"
+      case .notReachable:
+        netType = "NoConnection"
+      }
+    } else {
+      netType = "Unknown"
+    }
+    let ua = "\(_userAgent) \(appName)/\(App.version) NetType/\(netType) Language/\(App.lang)"
     UserDefaults.standard.register(defaults: ["UserAgent": ua])
     return ua
   }
