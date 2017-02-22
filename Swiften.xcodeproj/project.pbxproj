@@ -62,6 +62,7 @@
 		587737561CF573B6003F56CD /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587737551CF573B6003F56CD /* Notifications.swift */; };
 		58FA04C01CF32B5C000FAC2C /* Swiften.h in Headers */ = {isa = PBXBuildFile; fileRef = 58FA04BF1CF32B5C000FAC2C /* Swiften.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		58FA04C71CF32B5C000FAC2C /* Swiften.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58FA04BC1CF32B5C000FAC2C /* Swiften.framework */; };
+		58FB6B511E5D9D610075C4F6 /* DataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FB6B501E5D9D610075C4F6 /* DataTests.swift */; };
 		5A0F0632A731EFDE1ED3B0D8 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F04A089440C41E51C1D46 /* LoadingIndicator.swift */; };
 		C52F4AE0DC6E92F0AC2E4FCD /* Pods_Swiften.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A52D6A8DB0F27D4DED2B177 /* Pods_Swiften.framework */; };
 /* End PBXBuildFile section */
@@ -134,6 +135,7 @@
 		58FA04C61CF32B5C000FAC2C /* SwiftenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		58FA04CD1CF32B5C000FAC2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58FA04DA1CF32C7D000FAC2C /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
+		58FB6B501E5D9D610075C4F6 /* DataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTests.swift; sourceTree = "<group>"; };
 		5A0F013AF8AA926C63FF7852 /* WebView+Proxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WebView+Proxy.swift"; sourceTree = "<group>"; };
 		5A0F03DBFD84EB8D2FFD5DD4 /* WebView+NavigationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WebView+NavigationDelegate.swift"; sourceTree = "<group>"; };
 		5A0F04A089440C41E51C1D46 /* LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				5856B2461D3383630066A7DD /* RestTests.swift */,
 				581D96691E57DF760089E46C /* AppTests.swift */,
 				582BB51F1E59830000CF64B7 /* CacheTests.swift */,
+				58FB6B501E5D9D610075C4F6 /* DataTests.swift */,
 			);
 			path = SwiftenTests;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58FB6B511E5D9D610075C4F6 /* DataTests.swift in Sources */,
 				581D966C1E57F0BF0089E46C /* UIViewTests.swift in Sources */,
 				581D96701E593E150089E46C /* DateTests.swift in Sources */,
 				582BB5201E59830000CF64B7 /* CacheTests.swift in Sources */,
