@@ -47,12 +47,12 @@ extension String {
 extension String {
   /// Base64编码
   public var base64Encoded: String {
-    return data.base64EncodedString(options: [])
+    return data.base64EncodedString()
   }
   
   /// Base64解码
   public var base64Decoded: String {
-    return Data(base64Encoded: self, options: [])?.string ?? ""
+    return Data(base64Encoded: self)?.string ?? ""
   }
 }
 
