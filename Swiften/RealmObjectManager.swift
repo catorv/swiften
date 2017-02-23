@@ -1,5 +1,5 @@
 //
-//  RealmEntityManager.swift
+//  RealmObjectManager.swift
 //  Swiften
 //
 //  Created by Cator Vee on 5/25/16.
@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-open class RealmEntityManager<T: Object> {
+open class RealmObjectManager<T: Object> {
   
   open var realm: Realm
   
@@ -17,7 +17,7 @@ open class RealmEntityManager<T: Object> {
     self.realm = realm
   }
   
-  // MARK: - Query Entity
+  // MARK: - Query Object
   
   open var objects: Results<T> {
     return realm.objects(T.self)
@@ -27,29 +27,29 @@ open class RealmEntityManager<T: Object> {
     return realm.object(ofType: T.self, forPrimaryKey: key)
   }
   
-  open func query(_ predicateFormat: String, _ args: AnyObject...) -> Results<T> {
+  open func filter(_ predicateFormat: String, _ args: AnyObject...) -> Results<T> {
     return objects.filter(predicateFormat, args)
   }
   
-  open func query(_ predicate: NSPredicate) -> Results<T> {
+  open func filter(_ predicate: NSPredicate) -> Results<T> {
     return objects.filter(predicate)
   }
   
-  // MARK: - Create Entity
+  // MARK: - Create Object
   
   open func create(_ value: AnyObject) -> T? {
-    var entity: T?
+    var object: T?
     do {
       try realm.write { [weak realm] in
-        entity = realm?.create(T.self, value: value, update: true)
+        object = realm?.create(T.self, value: value, update: true)
       }
     } catch let error {
-      Log.error("EntityManager: \(error)")
+      Log.error("ObjectManager: \(error)")
     }
-    return entity
+    return object
   }
   
-  // MARK: - Save Entity
+  // MARK: - Save Object
   
   open func save(_ object: T) {
     do {
@@ -57,7 +57,7 @@ open class RealmEntityManager<T: Object> {
         realm?.add(object, update: true)
       }
     } catch let error {
-      Log.error("EntityManager: \(error)")
+      Log.error("ObjectManager: \(error)")
     }
   }
   
@@ -65,11 +65,11 @@ open class RealmEntityManager<T: Object> {
     do {
       try realm.write(callback)
     } catch let error {
-      Log.error("EntityManager: \(error)")
+      Log.error("ObjectManager: \(error)")
     }
   }
   
-  // MARK: - Delete Entity
+  // MARK: - Delete Object
   
   open func delete(_ object: T) {
     do {
@@ -77,7 +77,7 @@ open class RealmEntityManager<T: Object> {
         realm?.delete(object)
       }
     } catch let error {
-      Log.error("EntityManager: \(error)")
+      Log.error("ObjectManager: \(error)")
     }
   }
   
@@ -87,7 +87,7 @@ open class RealmEntityManager<T: Object> {
         realm?.delete(objects)
       }
     } catch let error {
-      Log.error("EntityManager: \(error)")
+      Log.error("ObjectManager: \(error)")
     }
   }
   
@@ -97,7 +97,7 @@ open class RealmEntityManager<T: Object> {
         realm?.delete(objects)
       }
     } catch let error {
-      Log.error("EntityManager: \(error)")
+      Log.error("ObjectManager: \(error)")
     }
   }
   
@@ -107,7 +107,7 @@ open class RealmEntityManager<T: Object> {
         realm?.delete(objects)
       }
     } catch let error {
-      Log.error("EntityManager: \(error)")
+      Log.error("ObjectManager: \(error)")
     }
   }
   
@@ -131,7 +131,7 @@ open class RealmEntityManager<T: Object> {
         realm?.delete(objects)
       }
     } catch let error as NSError {
-      Log.error("EntityManager: \(error)")
+      Log.error("ObjectManager: \(error)")
     }
   }
   

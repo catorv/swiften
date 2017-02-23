@@ -19,6 +19,8 @@ open class RealmCacheValue: Object, CacheValue {
     return "key"
   }
   
+  public static let om = RealmObjectManager<RealmCacheValue>(realm: Realm.sharedRealm)
+  
   public var isValid: Bool {
     return expires < 0.000001 || expires > Date.timeIntervalSinceReferenceDate
   }
@@ -28,21 +30,19 @@ open class RealmCache: Cachable {
   
   public typealias Value = RealmCacheValue
   
-  public static let em = RealmEntityManager<RealmCacheValue>(realm: Realm.sharedRealm)
-  
   public init() {
     
   }
 
   public func value(forKey key: String) -> RealmCacheValue? {
-    guard let cacheValue = RealmCache.em.object(primaryKey: key as AnyObject), cacheValue.isValid else {
+    guard let cacheValue = RealmCacheValue.om.object(primaryKey: key as AnyObject), cacheValue.isValid else {
       return nil
     }
     return cacheValue
   }
   
   public func set(value: RealmCacheValue) {
-    RealmCache.em.save(value)
+    RealmCacheValue.om.save(value)
   }
   
   public func string(forKey key: String) -> String? {
@@ -63,11 +63,11 @@ open class RealmCache: Cachable {
     guard let item = value(forKey: key) else {
       return
     }
-    RealmCache.em.delete(item)
+    RealmCacheValue.om.delete(item)
   }
   
   public func clear() {
-    RealmCache.em.deleteAll()
+    RealmCacheValue.om.deleteAll()
   }
   
 }
