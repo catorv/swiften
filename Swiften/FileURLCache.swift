@@ -1,5 +1,5 @@
 //
-//  URLCache.swift
+//  FileURLCache.swift
 //  Swiften
 //
 //  Created by Cator Vee on 5/26/16.
@@ -9,7 +9,7 @@
 import Foundation
 import ReachabilitySwift
 
-open class URLCache: Foundation.URLCache {
+open class FileURLCache: URLCache {
   
   open static var cacheFolder = "URLCache" // The folder in the Documents folder where cached files will be saved
   open static var memoryCapacity = 16 * 1024 * 1024 // The maximum memory size that will be cached
@@ -18,13 +18,13 @@ open class URLCache: Foundation.URLCache {
   
   fileprivate static var cacheDirectory: String!
   
-  // Activate LDURLCache
+  // Activate URLFileCache
   open class func activate() {
     // set caching paths
     let cachePath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0]
     cacheDirectory = URL(fileURLWithPath: cachePath).appendingPathComponent(cacheFolder).absoluteString
-    let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: cacheDirectory)
-    Foundation.URLCache.shared = urlCache
+    let urlCache = FileURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: cacheDirectory)
+    URLCache.shared = urlCache
   }
   
   // Will be called by a NSURLConnection when it's wants to know if there is something in the cache.
@@ -40,7 +40,7 @@ open class URLCache: Foundation.URLCache {
       return nil
     }
     
-    if !URLCache.filter(request) {
+    if !FileURLCache.filter(request) {
       Log.error("CACHE skipped because of filter")
       return nil
     }
@@ -52,7 +52,7 @@ open class URLCache: Foundation.URLCache {
       return nil
     }
     
-    let storagePath = URLCache.storagePathForRequest(request, rootPath: URLCache.cacheDirectory)
+    let storagePath = FileURLCache.storagePathForRequest(request, rootPath: FileURLCache.cacheDirectory)
     if !FileManager.default.fileExists(atPath: storagePath) {
       //Log.warn("CACHE not found \(storagePath) for \(url.absoluteString)")
       return nil
@@ -63,7 +63,7 @@ open class URLCache: Foundation.URLCache {
       //Log.info("Returning cached data from \(storagePath) for \(url.absoluteString)");
       
       // I have to find out the difrence. For now I will let the developer checkt which version to use
-      //if LDURLCache.RECREATE_CACHE_RESPONSE {
+      //if URLFileCache.RECREATE_CACHE_RESPONSE {
       //// This works for most sites, but aperently not for the game as in the alternate url you see in ViewController
       //let r = NSURLResponse(URL: response.response.URL!, MIMEType: response.response.MIMEType, expectedContentLength: response.data.length, textEncodingName: response.response.textEncodingName)
       //return NSCachedURLResponse(response: r, data: response.data, userInfo: response.userInfo, storagePolicy: .Allowed)
@@ -78,7 +78,7 @@ open class URLCache: Foundation.URLCache {
   
   // Will be called by NSURLConnection when a request is complete.
   open override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for request: URLRequest) {
-    if !URLCache.filter(request) {
+    if !FileURLCache.filter(request) {
       return
     }
     if let httpResponse = cachedResponse.response as? HTTPURLResponse {
@@ -88,7 +88,7 @@ open class URLCache: Foundation.URLCache {
       }
     }
     
-    let storagePath = URLCache.storagePathForRequest(request, rootPath: URLCache.cacheDirectory)
+    let storagePath = FileURLCache.storagePathForRequest(request, rootPath: FileURLCache.cacheDirectory)
     if storagePath.isEmpty {
       Log.error("Error building cache storage path")
     }
@@ -122,7 +122,7 @@ open class URLCache: Foundation.URLCache {
     } else {
       //Log.info("CACHE save file to Cache  : \(storagePath)");
       // prevent iCloud backup
-      if !URLCache.addSkipBackupAttributeToItemAtURL(URL(fileURLWithPath: storagePath)) {
+      if !FileURLCache.addSkipBackupAttributeToItemAtURL(URL(fileURLWithPath: storagePath)) {
         Log.warn("Could not set the do not backup attribute");
       }
     }
@@ -130,7 +130,7 @@ open class URLCache: Foundation.URLCache {
   
   // return the path if the file for the request is in the PreCache or Cache.
   static func storagePathForRequest(_ request: URLRequest) -> String? {
-    var storagePath: String? = URLCache.storagePathForRequest(request, rootPath: URLCache.cacheDirectory)
+    var storagePath: String? = FileURLCache.storagePathForRequest(request, rootPath: FileURLCache.cacheDirectory)
     if !FileManager.default.fileExists(atPath: storagePath ?? "") {
       storagePath = nil
     }

@@ -75,9 +75,9 @@ extension WebViewController {
     guard let url = url else {
       return
     }
-    let controller = WebViewController()
-    controller.load(from: url)
-    controller.hidesBottomBarWhenPushed = true
-    UIViewController.show(viewController: controller, animated: true)
+    let viewController = WebViewController()
+    viewController.load(from: url)
+    viewController.hidesBottomBarWhenPushed = true
+    UIViewController.show(viewController, animated: true)
   }
 }

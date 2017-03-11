@@ -37,7 +37,7 @@ extension String {
 extension Data {
   /// 返回UTF8字符串
   public var string: String {
-    return String(data: self, encoding: String.Encoding.utf8) ?? ""
+    return String(data: self, encoding: .utf8) ?? ""
   }
 }
 

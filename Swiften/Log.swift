@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Log {
-  fileprivate static var dateFormatter: DateFormatter!
+  private static let dateFormatter = DateFormatter(dateFormat: "HH:mm:ss.SSS")
   
   public static let LEVEL_NONE    = 0
   public static let LEVEL_ERROR   = 1
@@ -20,10 +20,6 @@ public struct Log {
   public static var level = LEVEL_DEBUG
   
   fileprivate static func printMessage<T>(_ level: String, message: T, column: Int, line: Int, function: String, file: String) {
-    if dateFormatter == nil {
-      dateFormatter = DateFormatter.init(dateFormat: "HH:mm:ss.SSS")
-    }
-    
     let time = dateFormatter.string(from: Date())
     
     let filename: String

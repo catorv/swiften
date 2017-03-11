@@ -9,36 +9,6 @@
 import Foundation
 import Toast_Swift
 
-/// 延迟执行代码（秒）
-public func delay(seconds: Int, task: @escaping () -> Void) {
-  DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds), execute: task)
-}
-
-/// 延迟执行代码（毫秒）
-public func delay(milliseconds ms: Int, task: @escaping () -> Void) {
-  DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(ms), execute: task)
-}
-
-/// 异步执行代码块（先非主线程执行，再返回主线程执行）
-public func async(backgroundTask: @escaping () -> AnyObject?, mainTask: @escaping (AnyObject?) -> Void) {
-  DispatchQueue.global().async {
-    let result = backgroundTask()
-    DispatchQueue.main.sync {
-      mainTask(result)
-    }
-  }
-}
-
-/// 异步执行代码块（主线程执行）
-public func async(mainTask: @escaping () -> Void) {
-  DispatchQueue.main.async(execute: mainTask)
-}
-
-/// 顺序执行代码块（在队列中执行）
-public func sync(task: () -> Void) {
-  DispatchQueue(label: "com.catorv.LockQueue", attributes: []).sync(execute: task)
-}
-
 public func alert(_ message: String, title: String? = nil, buttonTitle: String = "我知道了", completion: (() -> Void)? = nil) {
   let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
   controller.addAction(UIAlertAction(title: buttonTitle, style: .default) { action in
