@@ -58,6 +58,8 @@
 		58842AA51E710ACF0019E2BA /* JerseyEncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58842AA41E710ACF0019E2BA /* JerseyEncodingTests.swift */; };
 		58842AE11E728E220019E2BA /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58842AE01E728E220019E2BA /* GCD.swift */; };
 		58842AE31E7290F10019E2BA /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58842AE21E7290F10019E2BA /* GCD.swift */; };
+		58842AEE1E73D6800019E2BA /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58842AED1E73D6800019E2BA /* UserAgent.swift */; };
+		58842AF01E73DB8C0019E2BA /* UserAgentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58842AEF1E73DB8C0019E2BA /* UserAgentTests.swift */; };
 		58BB99551E6F98610046149F /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB99541E6F98610046149F /* ApiService.swift */; };
 		58FA04C01CF32B5C000FAC2C /* Swiften.h in Headers */ = {isa = PBXBuildFile; fileRef = 58FA04BF1CF32B5C000FAC2C /* Swiften.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		58FA04C71CF32B5C000FAC2C /* Swiften.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58FA04BC1CF32B5C000FAC2C /* Swiften.framework */; };
@@ -134,6 +136,8 @@
 		58842AA41E710ACF0019E2BA /* JerseyEncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JerseyEncodingTests.swift; sourceTree = "<group>"; };
 		58842AE01E728E220019E2BA /* GCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
 		58842AE21E7290F10019E2BA /* GCD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
+		58842AED1E73D6800019E2BA /* UserAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgent.swift; sourceTree = "<group>"; };
+		58842AEF1E73DB8C0019E2BA /* UserAgentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentTests.swift; sourceTree = "<group>"; };
 		58BB99541E6F98610046149F /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		58FA04BC1CF32B5C000FAC2C /* Swiften.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swiften.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58FA04BF1CF32B5C000FAC2C /* Swiften.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Swiften.h; sourceTree = "<group>"; };
@@ -189,12 +193,13 @@
 		583E78F51CF6CE1D00BE9ECA /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				58842AED1E73D6800019E2BA /* UserAgent.swift */,
 				583E78F61CF6CE3500BE9ECA /* WebView.swift */,
+				5A0F013AF8AA926C63FF7852 /* WebView+Proxy.swift */,
 				583E78FA1CF6D34800BE9ECA /* WebView+UserContentController.swift */,
-				583E78FC1CF6D35F00BE9ECA /* WebView+EmbedService.swift */,
 				5A0F0AD1A961700F464D9BB5 /* WebView+UIDelegate.swift */,
 				5A0F03DBFD84EB8D2FFD5DD4 /* WebView+NavigationDelegate.swift */,
-				5A0F013AF8AA926C63FF7852 /* WebView+Proxy.swift */,
+				583E78FC1CF6D35F00BE9ECA /* WebView+EmbedService.swift */,
 			);
 			name = WebView;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				58842AA01E6FF14F0019E2BA /* TestWebServer.bundle */,
 				58842AA41E710ACF0019E2BA /* JerseyEncodingTests.swift */,
 				58842AE21E7290F10019E2BA /* GCD.swift */,
+				58842AEF1E73DB8C0019E2BA /* UserAgentTests.swift */,
 			);
 			path = SwiftenTests;
 			sourceTree = "<group>";
@@ -575,6 +581,7 @@
 				585A86391CF54C2600F121E6 /* Log.swift in Sources */,
 				582BB5231E5993C000CF64B7 /* WebView+EmbedService.swift in Sources */,
 				583E79101CF729C100BE9ECA /* ActionSheetController.swift in Sources */,
+				58842AEE1E73D6800019E2BA /* UserAgent.swift in Sources */,
 				585A862B1CF4B45D00F121E6 /* UIImage+Extension.swift in Sources */,
 				583E791F1CF756E200BE9ECA /* UIView+Swizzle.swift in Sources */,
 				585A86251CF4B0C100F121E6 /* CALayer+Extension.swift in Sources */,
@@ -626,6 +633,7 @@
 				581D96711E59484E0089E46C /* UIColorTests.swift in Sources */,
 				581D96671E571D8D0089E46C /* UDIDTests.swift in Sources */,
 				581D966A1E57DF760089E46C /* AppTests.swift in Sources */,
+				58842AF01E73DB8C0019E2BA /* UserAgentTests.swift in Sources */,
 				581D96741E59588E0089E46C /* LogTests.swift in Sources */,
 				58842AE31E7290F10019E2BA /* GCD.swift in Sources */,
 				581D96721E594E020089E46C /* CGRectTests.swift in Sources */,

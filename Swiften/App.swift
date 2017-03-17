@@ -13,6 +13,16 @@ public struct App {
   public enum RunMode {
     case debug, test, release
   }
+	
+	public struct Info {
+		public subscript(key: String) -> Any? {
+			return Bundle.main.object(forInfoDictionaryKey: key)
+		}
+	}
+	
+	public static let info = Info()
+	
+	public static var name = "Switen"
   
   public static var runMode: RunMode = .debug
   
@@ -21,11 +31,11 @@ public struct App {
   }
   
   public static var version: String {
-    return bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+		return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
   }
   
   public static var build: String {
-    return bundle.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0"
+		return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0"
   }
   
   public static var lang: String {

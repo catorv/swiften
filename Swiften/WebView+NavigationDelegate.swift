@@ -12,6 +12,7 @@ extension WebView: WKNavigationDelegate {
       decisionHandler(.cancel)
       return
     }
+		UserAgent.apply(webView)
     let urlString = url.absoluteString
     if urlString.contains("//itunes.apple.com/") || !urlString.hasPrefix("//") && !urlString.hasPrefix("http:") && !urlString.hasPrefix("https:") {
       UIApplication.shared.openURL(url)
@@ -29,9 +30,9 @@ extension WebView: WKNavigationDelegate {
   
   public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
     Log.info("webview: \(webView.url!.absoluteString)")
-    if !loadingProgressBarHidden {
-      loadingProgressBar.isHidden = false
-      loadingProgressBar.progress = 0.1
+    if showProgressBarWhenLoading {
+      progressBar.isHidden = false
+      progressBar.progress = 0.1
     }
     navigationDelegate?.webView?(webView, didStartProvisionalNavigation: navigation)
   }
@@ -41,13 +42,15 @@ extension WebView: WKNavigationDelegate {
   }
   
   public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-    Log.error("webview didFailProvisionalNavigation:\(error)")
+    Log.error("webview didFailProvisionalNavigation: \(error)")
     navigationDelegate?.webView?(webView, didFailProvisionalNavigation: navigation, withError: error)
   }
   
   public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-    loadingProgressBar.isHidden = true
-    loadingProgressBar.progress = 1
+		if showProgressBarWhenLoading {
+			progressBar.isHidden = true
+			progressBar.progress = 1
+		}
     navigationDelegate?.webView?(webView, didFinish: navigation!)
   }
   
@@ -60,9 +63,7 @@ extension WebView: WKNavigationDelegate {
   }
   
   public func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-    if navigationDelegate != nil && navigationDelegate!.responds(to: #selector(WKNavigationDelegate.webView(_:didReceive:completionHandler:))) {
-      navigationDelegate!.webView?(webView, didReceive: challenge, completionHandler: completionHandler)
-    } else {
+		if navigationDelegate?.webView?(webView, didReceive: challenge, completionHandler: completionHandler) == nil {
       guard let hostName = webView.url?.host else {
         completionHandler(.cancelAuthenticationChallenge, nil);
         return

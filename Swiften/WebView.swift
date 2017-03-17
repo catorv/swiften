@@ -10,43 +10,21 @@ import Foundation
 import WebKit
 import ReachabilitySwift
 
-open class WebView: UIView {
+public class WebView: UIView {
   
   // MARK:- statics
   
-  open static var appName = "Vee"
-  
-  private static var _userAgent: String!
-  open static var userAgent: String {
-    if _userAgent == nil {
-      _userAgent = UIWebView().stringByEvaluatingJavaScript(from: "navigator.userAgent") ?? ""
-    }
-    let netType: String
-    if let reachabilityStatus = Reachability()?.currentReachabilityStatus {
-      switch reachabilityStatus {
-      case .reachableViaWiFi:
-        netType = "WiFi"
-      case .reachableViaWWAN:
-        netType = "WWAN"
-      case .notReachable:
-        netType = "NoConnection"
-      }
-    } else {
-      netType = "Unknown"
-    }
-    let ua = "\(_userAgent) \(appName)/\(App.version) NetType/\(netType) Language/\(App.lang)"
-    UserDefaults.standard.register(defaults: ["UserAgent": ua])
-    return ua
-  }
-  
-  open static var defaultProcessPool = WKProcessPool()
-  open static var defaultConfiguration: WKWebViewConfiguration {
+  public static var defaultProcessPool = WKProcessPool()
+  public static var defaultConfiguration: WKWebViewConfiguration {
     let config = WKWebViewConfiguration()
     config.processPool = defaultProcessPool
     config.userContentController = UserContentController()
     config.allowsInlineMediaPlayback = true
-    if #available(iOS 9.0, *) {
-      config.websiteDataStore = WKWebsiteDataStore.default()
+		if #available(iOS 10.0, *) {
+			config.websiteDataStore = .default()
+			config.mediaTypesRequiringUserActionForPlayback = []
+		} else if #available(iOS 9.0, *) {
+      config.websiteDataStore = .default()
       config.requiresUserActionForMediaPlayback = false
     } else {
       config.mediaPlaybackRequiresUserAction = false
@@ -55,67 +33,64 @@ open class WebView: UIView {
   }
   
   // MARK: properties
+	
+	public var progressBar = UIProgressView()
+	public var showProgressBarWhenLoading = true
   
-  open var loadingProgressBar = UIProgressView()
-  open var loadingProgressBarHidden: Bool = false {
-    didSet {
-      loadingProgressBar.isHidden = loadingProgressBarHidden
-    }
-  }
-  
-  open weak var serviceDelegate: WebViewServiceDelegate?
-  open weak var navigationDelegate: WKNavigationDelegate?
-  open weak var UIDelegate: WKUIDelegate?
-  open var webView: WKWebView!
+  public weak var serviceDelegate: WebViewServiceDelegate?
+  public weak var navigationDelegate: WKNavigationDelegate?
+  public weak var uiDelegate: WKUIDelegate?
+	
+  public var webView: WKWebView!
   
   // MARK: - init
   
-  convenience init() {
+  public convenience init() {
     self.init(frame: CGRect.zero, configuration: WebView.defaultConfiguration)
   }
   
-  override convenience init(frame: CGRect) {
+  public override convenience init(frame: CGRect) {
     self.init(frame: frame, configuration: WebView.defaultConfiguration)
   }
   
   public init(frame: CGRect, configuration: WKWebViewConfiguration) {
     super.init(frame: frame)
-    self.setup(configuration)
+    setupWebView(configuration)
   }
   
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    self.setup(WebView.defaultConfiguration)
+    setupWebView(WebView.defaultConfiguration)
   }
   
-  fileprivate func setup(_ config: WKWebViewConfiguration) {
+  private func setupWebView(_ config: WKWebViewConfiguration) {
     // Setup WebView
     webView = WKWebView(frame: bounds, configuration: config)
     webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    self.addSubview(webView)
+    addSubview(webView)
     
     // Setup User Content Controller
     if let userContentController = webView.configuration.userContentController as? UserContentController {
       userContentController.webView = self
     }
     
-    // Setup User Agent
-    if #available(iOS 9.0, *) {
-      webView.customUserAgent = WebView.userAgent
-    }
-    
     // Setup Loading ProgressBar
-    self.addSubview(loadingProgressBar)
-    loadingProgressBar.frame = CGRect(x: 0, y: 0, width: self.bounds.size.width, height: 1)
-    loadingProgressBar.autoresizingMask = [.flexibleWidth]
-    
+    addSubview(progressBar)
+		webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+		
     // Setup Navigation Delegate
     webView.navigationDelegate = self
-    webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
-    
+		
     // Setup UI Delegate
     webView.uiDelegate = self
   }
+	
+	open override func layoutSubviews() {
+		super.layoutSubviews()
+		let y = webView.scrollView.contentInset.top
+		let width = bounds.size.width
+		progressBar.frame = CGRect(x: 0, y: y, width: width, height: 1)
+	}
   
   deinit {
     webView.removeObserver(self, forKeyPath: "estimatedProgress")
@@ -123,18 +98,20 @@ open class WebView: UIView {
   
   // MARK: - Custom Methods
   
-  func loadURLString(_ urlString: String) -> WKNavigation? {
-    if let url = Foundation.URL(string: urlString) {
-      return loadRequest(URLRequest(url: url))
+  func load(urlString: String) -> WKNavigation? {
+    guard let url = URL(string: urlString) else {
+      return nil
     }
-    return nil
+		return load(URLRequest(url: url))
   }
   
   // MARK: - Observe Value For KeyPath
   
   override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey:Any]?, context: UnsafeMutableRawPointer?) {
     if keyPath == "estimatedProgress" {
-      self.loadingProgressBar.progress = Float(0.1 + self.webView.estimatedProgress * 0.9)
+			if showProgressBarWhenLoading {
+				progressBar.progress = Float(0.1 + webView.estimatedProgress * 0.9)
+			}
     }
   }
   

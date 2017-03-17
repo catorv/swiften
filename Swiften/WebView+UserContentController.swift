@@ -12,13 +12,13 @@ import SwiftyJSON
 
 extension WebView {
   
-  open class UserContentController : WKUserContentController, WKScriptMessageHandler {
+  public class UserContentController : WKUserContentController, WKScriptMessageHandler {
     
-    let name = "__AHA_JSSDK"
-    let methodKey = "__AHA__METHOD__NAME__"
+    let name = "WEBVIEWSERVICE"
+    let serviceNameKey = "@NAME"
     
-    open var embedService: EmbedService!
-    open weak var webView: WebView!
+    public var embedService: EmbedService!
+    public weak var webView: WebView!
     
     override init() {
       super.init()
@@ -30,12 +30,12 @@ extension WebView {
       fatalError("init(coder:) has not been implemented")
     }
     
-    open func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
       if message.name == name {
         if let body = message.body as? String {
-          let options = body.json
-          if let methodName = options[methodKey].string, !methodName.isEmpty {
-            embedService.process(methodName, options: options)
+          let options = JSON(parseJSON: body)
+          if let serviceName = options[serviceNameKey].string, !serviceName.isEmpty {
+            embedService.process(serviceName, options: options)
           }
         }
       }

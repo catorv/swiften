@@ -18,19 +18,4 @@ public struct HttpClient {
 	public static var messageFieldName	= "msg"
 	public static var errorFieldName		= "errmsg"
 	public static var tokenFieldName		= "token"
-  
-  public static func initHttpClient(configuration: URLSessionConfiguration = .default,
-                                    delegate: SessionDelegate = SessionDelegate(),
-                                    serverTrustPolicyManager: ServerTrustPolicyManager? = nil) {
-    if configuration.httpAdditionalHeaders == nil {
-      configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
-    }
-    if configuration.httpAdditionalHeaders!["User-Agent"] == nil {
-      configuration.httpAdditionalHeaders!["User-Agent"] = WebView.userAgent
-    }
-    if configuration.urlCache == nil {
-      configuration.urlCache = URLCache.shared
-    }
-  }
-
 }

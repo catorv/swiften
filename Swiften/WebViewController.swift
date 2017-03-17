@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import Swiften
 
 open class WebViewController: UIViewController {
-  @IBOutlet open var webView: WebView!
+  @IBOutlet public var webView: WebView!
   
-  fileprivate var url: Foundation.URL!
+  public var url: URL!
   
   override open func viewDidLoad() {
     super.viewDidLoad()
@@ -20,23 +21,12 @@ open class WebViewController: UIViewController {
       webView = WebView(frame: view.bounds)
       view.addSubview(webView!)
     }
-    
+		webView.webView.addObserver(self, forKeyPath: "title", options: .new, context: nil)
+		
     if let url = url {
-      load(from: url)
+      webView.load(URLRequest(url: url))
       self.url = nil
     }
-  }
-  
-  open func load(from url: Foundation.URL) {
-    if webView != nil {
-      load(URLRequest(url: url))
-    } else {
-      self.url = url
-    }
-  }
-  
-  open func load(_ request: URLRequest) {
-    let _ = webView.loadRequest(request)
   }
   
   // MARK: - Navigation
@@ -46,8 +36,7 @@ open class WebViewController: UIViewController {
   }
   
   open func back() {
-    guard let webView = webView?.webView else { return }
-    if webView.canGoBack {
+		if webView?.canGoBack == true {
       webView.goBack()
     } else {
       close()
@@ -55,28 +44,36 @@ open class WebViewController: UIViewController {
   }
   
   open func forward() {
-    guard let webView = webView?.webView else { return }
-    if webView.canGoForward {
+    if webView?.canGoForward == true {
       webView.goForward()
     }
   }
-  
+	
+	open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if keyPath == "title" {
+			title = webView.title
+		}
+	}
+	
+	deinit {
+		webView.webView.removeObserver(self, forKeyPath: "title")
+	}
 }
 
 extension WebViewController {
-  public class func open(urlString: String?) {
+  open class func open(urlString: String?) {
     guard let urlString = urlString else {
       return
     }
     open(url: URL(string: urlString))
   }
   
-  public class func open(url: URL?) {
+  open class func open(url: URL?) {
     guard let url = url else {
       return
     }
     let viewController = WebViewController()
-    viewController.load(from: url)
+		viewController.url = url
     viewController.hidesBottomBarWhenPushed = true
     UIViewController.show(viewController, animated: true)
   }
