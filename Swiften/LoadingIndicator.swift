@@ -17,7 +17,7 @@ open class LoadingIndicator {
       if self.count == 0 {
         if self.view == nil {
           self.view = UIView(frame: window.bounds)
-          self.view.backgroundColor = UIColor(r: 0, g: 0, b: 0, a: 0.5)
+					self.view.backgroundColor = UIColor(rgb: 0, alpha: 0.5)
         } else {
           self.view.removeFromSuperview()
         }

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Swiften
 
 open class WebViewController: UIViewController {
   @IBOutlet public var webView: WebView!

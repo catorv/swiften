@@ -36,7 +36,7 @@
 		583E79011CF6E8E200BE9ECA /* Swiften.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583E79001CF6E8E200BE9ECA /* Swiften.swift */; };
 		583E790B1CF71A2200BE9ECA /* Stringify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583E790A1CF71A2200BE9ECA /* Stringify.swift */; };
 		583E79101CF729C100BE9ECA /* ActionSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583E790F1CF729C100BE9ECA /* ActionSheetController.swift */; };
-		583E79181CF747B600BE9ECA /* VerticalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583E79171CF747B600BE9ECA /* VerticalButton.swift */; };
+		583E79181CF747B600BE9ECA /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583E79171CF747B600BE9ECA /* ImageButton.swift */; };
 		583E791A1CF74B0800BE9ECA /* Swizzler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583E79191CF74B0800BE9ECA /* Swizzler.swift */; };
 		583E791F1CF756E200BE9ECA /* UIView+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583E791E1CF756E200BE9ECA /* UIView+Swizzle.swift */; };
 		585A85BA1CF32F0C00F121E6 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585A85B91CF32F0C00F121E6 /* String+Extension.swift */; };
@@ -104,7 +104,7 @@
 		583E790C1CF71A8D00BE9ECA /* StringifyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringifyTests.swift; sourceTree = "<group>"; };
 		583E790F1CF729C100BE9ECA /* ActionSheetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetController.swift; sourceTree = "<group>"; };
 		583E79151CF7424700BE9ECA /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		583E79171CF747B600BE9ECA /* VerticalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalButton.swift; sourceTree = "<group>"; };
+		583E79171CF747B600BE9ECA /* ImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		583E79191CF74B0800BE9ECA /* Swizzler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swizzler.swift; sourceTree = "<group>"; };
 		583E791B1CF7526300BE9ECA /* SwizzlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwizzlerTests.swift; sourceTree = "<group>"; };
 		583E791E1CF756E200BE9ECA /* UIView+Swizzle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Swizzle.swift"; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 			children = (
 				583E790E1CF7297500BE9ECA /* ViewController */,
 				583E78F51CF6CE1D00BE9ECA /* WebView */,
-				583E79171CF747B600BE9ECA /* VerticalButton.swift */,
+				583E79171CF747B600BE9ECA /* ImageButton.swift */,
 				5A0F04A089440C41E51C1D46 /* LoadingIndicator.swift */,
 			);
 			name = UIComponents;
@@ -600,7 +600,7 @@
 				58842AE11E728E220019E2BA /* GCD.swift in Sources */,
 				582BB5211E5993C000CF64B7 /* WebView.swift in Sources */,
 				582BB51E1E5980A600CF64B7 /* RealmCache.swift in Sources */,
-				583E79181CF747B600BE9ECA /* VerticalButton.swift in Sources */,
+				583E79181CF747B600BE9ECA /* ImageButton.swift in Sources */,
 				582BB5241E5993C000CF64B7 /* WebView+UIDelegate.swift in Sources */,
 				585A861D1CF44AD200F121E6 /* Functions.swift in Sources */,
 				58FB6B591E5FF6EE0075C4F6 /* ContentType.swift in Sources */,
