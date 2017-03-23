@@ -1,5 +1,5 @@
 //
-//  ImageButton.swift
+//  ButtonEx.swift
 //  Swiften
 //
 //  Created by Cator Vee on 5/26/16.
@@ -9,7 +9,7 @@
 import Foundation
 
 @IBDesignable
-open class ImageButton: UIButton {
+open class ButtonEx: UIButton {
 	
 	public enum ImagePosition: Int {
 		case top, right, bottom, left

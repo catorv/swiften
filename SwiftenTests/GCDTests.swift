@@ -1,5 +1,5 @@
 //
-//  GCD.swift
+//  GCDTests.swift
 //  Swiften
 //
 //  Created by Cator Vee on 10/03/2017.
@@ -9,7 +9,7 @@
 import XCTest
 import Swiften
 
-class GCD: XCTestCase {
+class GCDTests: XCTestCase {
 	
 	func testDelaySeconds() {
 		let exp = expectation(description: "")
