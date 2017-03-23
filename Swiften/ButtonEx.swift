@@ -25,19 +25,19 @@ open class ButtonEx: UIButton {
 		}
 	}
 	
-	open var position = ImagePosition.left {
+	open var imagePosition = ImagePosition.left {
 		didSet {
 			setNeedsLayout()
 		}
 	}
 	
 	@IBInspectable
-	open var imagePosition: Int {
+	open var imagePosition_IB: Int {
 		get {
-			return position.rawValue
+			return imagePosition.rawValue
 		}
 		set {
-			position = ImagePosition(rawValue: newValue) ?? .left
+			imagePosition = ImagePosition(rawValue: newValue) ?? .left
 		}
 	}
 	
@@ -48,7 +48,7 @@ open class ButtonEx: UIButton {
 			return
 		}
 		
-		switch position {
+		switch imagePosition {
 		case .top:
 			let width = frame.size.width
 			let height = frame.size.height
