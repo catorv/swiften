@@ -93,7 +93,7 @@ open class LoadingIndicatorView: UIView {
 		if let text = text, !text.isEmpty {
 			let gap: CGFloat = 8
 			let textMargin: CGFloat = 10
-			let labelHeight = textLabel.font.pointSize
+			let labelHeight = textLabel.font.lineHeight
 			let widthWithoutMargins = width - textMargin * 2
 			let indicatorWidth = indicatorView.frame.size.width
 			let indicatorHeight = indicatorView.frame.size.height
