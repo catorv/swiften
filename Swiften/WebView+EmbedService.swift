@@ -42,8 +42,14 @@ extension WebView {
       webView.serviceDelegate?.webView(webView, didCallService: serviceName, withStatus: success, result: result, options: options)
       
       guard evaluateJavaScript else { return }
-      
-      let result = JSON(["success": success, "result": result]).rawString(.utf8, options: JSONSerialization.WritingOptions()) ?? ""
+			
+			let json: JSON
+			if userContentController!.compatible {
+				json = JSON(["success": success, "msg": result])
+			} else {
+				json = JSON(["success": success, "result": result])
+			}
+      let result = json.rawString(.utf8, options: JSONSerialization.WritingOptions()) ?? ""
       if let webView = userContentController!.webView.webView {
         let callbackFunction = success ? options["success"] : options["fail"]
         if let funcname = callbackFunction.string {
