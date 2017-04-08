@@ -9,8 +9,13 @@
 import Foundation
 
 open class LocalStorage {
-  private let defaults = UserDefaults.standard
-  private var autoCommit = true
+	private let defaults: UserDefaults
+	private var autoCommit: Bool
+	
+	public init() {
+		defaults = UserDefaults.standard
+		autoCommit = true
+	}
   
   open func set(_ value: Any?, forKey key: String) {
     defaults.set(value, forKey: key)
