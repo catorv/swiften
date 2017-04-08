@@ -37,7 +37,8 @@ extension WebView {
     public func callback(_ success: Bool, result: Any, options: JSON, evaluateJavaScript: Bool = true) {
       guard let webView = userContentController.webView else { return }
 			
-      let serviceName = options[userContentController!.serviceNameKey].stringValue
+			let serviceNameKey = userContentController!.compatible ? userContentController!.compatibleServiceNameKey : userContentController!.serviceNameKey
+      let serviceName = options[serviceNameKey].stringValue
       webView.serviceDelegate?.webView(webView, didCallService: serviceName, withStatus: success, result: result, options: options)
       
       guard evaluateJavaScript else { return }
@@ -58,8 +59,9 @@ extension WebView {
     
     public func cancel(_ options: JSON) {
       guard let webView = userContentController?.webView else { return }
-      
-      let serviceName = options[userContentController!.serviceNameKey].stringValue
+			
+			let serviceNameKey = userContentController!.compatible ? userContentController!.compatibleServiceNameKey : userContentController!.serviceNameKey
+      let serviceName = options[serviceNameKey].stringValue
       webView.serviceDelegate?.webView(webView, didCancelService: serviceName, withOptions: options)
       
       if let webView = webView.webView, let funcname = options["cancel"].string {
