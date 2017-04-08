@@ -67,7 +67,7 @@ open class ActionSheetController: UIViewController {
 	@IBOutlet open var popupView: UIView!
 	var dismissButton: UIControl!
 	
-	public override var modalPresentationStyle: UIModalPresentationStyle {
+	open override var modalPresentationStyle: UIModalPresentationStyle {
 		get { return .overFullScreen }
 		set { /* nothing */ }
 	}
