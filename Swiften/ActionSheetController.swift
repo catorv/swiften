@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ActionSheetController: UIViewController {
+open class ActionSheetController: UIViewController {
 	
 	class PresentAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
 		public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -72,7 +72,7 @@ public class ActionSheetController: UIViewController {
 		set { /* nothing */ }
 	}
 	
-	public override func viewDidLoad() {
+	open override func viewDidLoad() {
 		super.viewDidLoad()
 		guard let popupView = popupView else {
 			return
@@ -96,7 +96,7 @@ public class ActionSheetController: UIViewController {
 		dismiss(animated: true, completion: nil)
 	}
 	
-	public func dismiss(completion: (() -> Swift.Void)? = nil) {
+	open func dismiss(completion: (() -> Swift.Void)? = nil) {
 		dismiss(animated: true, completion: completion)
 	}
 }
