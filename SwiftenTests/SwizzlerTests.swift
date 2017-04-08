@@ -15,22 +15,7 @@ class TestSwizzling: NSObject {
   }
 }
 
-extension TestSwizzling {
-  
-  private static let doOnce: Void = {
-    Swizzler.swizzleMethod(#selector(TestSwizzling.methodOne), with: #selector(TestSwizzling.methodTwo), forClass: TestSwizzling.self)
-  }()
-  
-  override class func initialize() {
-    // make sure this isn't a subclass
-    if self !== TestSwizzling.self {
-      return
-    }
-    
-    // 只执行一次
-    TestSwizzling.doOnce
-  }
-  
+extension TestSwizzling {  
   func methodTwo() -> Int {
     return methodTwo() + 1
   }
@@ -39,6 +24,7 @@ extension TestSwizzling {
 class SwizzlerTests: XCTestCase {
   
   func testSwizzle() {
+		Swizzler.swizzleMethod(#selector(TestSwizzling.methodOne), with: #selector(TestSwizzling.methodTwo), forClass: TestSwizzling.self)
     let c = TestSwizzling()
     XCTAssertEqual(c.methodOne(), 2)
     XCTAssertEqual(c.methodTwo(), 1)

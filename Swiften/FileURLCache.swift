@@ -141,7 +141,10 @@ open class FileURLCache: URLCache {
   static func storagePathForRequest(_ request: URLRequest, rootPath: String) -> String {
     if let urlString  = request.url?.absoluteString {
       let hash = "\(urlString.md5)\(urlString.sha1)".md5
-      var localUrl = "\(rootPath)\(hash[0])/\(hash[1...2])/\(hash[3..<32])"
+			if hash.length < 32 {
+				return ""
+			}
+      var localUrl = "\(rootPath)\(hash[0]!)/\(hash[1...2]!)/\(hash[3..<32]!)"
       if localUrl.hasPrefix("file:/") {
         localUrl = localUrl.substring(from: localUrl.characters.index(localUrl.startIndex, offsetBy: 6))
       }

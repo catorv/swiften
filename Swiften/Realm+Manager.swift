@@ -15,7 +15,7 @@ extension Realm {
   
   public static func createRealm(name: String) -> Realm? {
     guard let url = defaultRootUrl?.appendingPathComponent("\(name).realm") else {
-      Log.error("无效的数据库路径： \(name).realm in \(defaultRootUrl)")
+      Log.error("无效的数据库路径： \(name).realm in \(String(describing: defaultRootUrl))")
       return nil
     }
     do {
