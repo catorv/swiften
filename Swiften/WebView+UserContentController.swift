@@ -24,6 +24,8 @@ extension WebView {
       super.init()
       self.embedService = EmbedService(userContentController: self)
       self.add(self, name: name)
+			// 兼容旧版本
+			self.add(self, name: "__AHA_JSSDK")
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -38,9 +40,17 @@ extension WebView {
             embedService.process(serviceName, options: options)
           }
         }
-      }
+			} else if message.name == "__AHA_JSSDK" {
+				// 兼容旧版本
+				if let body = message.body as? String {
+					let options = JSON(parseJSON: body)
+					if let serviceName = options["__AHA__METHOD__NAME__"].string, !serviceName.isEmpty {
+						embedService.process(serviceName, options: options)
+					}
+				}
+			}
     }
-    
+		
   }
-  
+	
 }
