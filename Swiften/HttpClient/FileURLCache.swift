@@ -61,7 +61,7 @@ open class FileURLCache: URLCache {
         
         
         // Read object from file
-        if let response = try? NSKeyedUnarchiver.unarchivedObject(ofClass: CachedURLResponse.self, from: NSData(contentsOfFile: storagePath) as Data) {
+        if let response = NSKeyedUnarchiver.unarchiveObject(withFile: storagePath) as? CachedURLResponse {
             //Log.info("Returning cached data from \(storagePath) for \(url.absoluteString)");
             
             // I have to find out the difrence. For now I will let the developer checkt which version to use
@@ -110,8 +110,8 @@ open class FileURLCache: URLCache {
             }
         }
         
-        if let previousResponse = try? NSKeyedUnarchiver.unarchivedObject(ofClass: CachedURLResponse.self, from: NSData(contentsOfFile: storagePath) as Data) {
-            if previousResponse?.data == cachedResponse.data {
+        if let previousResponse = NSKeyedUnarchiver.unarchiveObject(withFile: storagePath) as? CachedURLResponse {
+            if previousResponse.data == cachedResponse.data {
                 //Log.info("CACHE not rewriting stored file for \(request.URL!.absoluteString)");
                 return
             }
@@ -119,8 +119,7 @@ open class FileURLCache: URLCache {
         
         // save file
         //Log.info("Writing data to \(storagePath) for \(request.URL!.absoluteString)");
-        if let data = try? NSKeyedArchiver.archivedData(withRootObject: cachedResponse, requiringSecureCoding: true) as NSData {
-            data.write(toFile: storagePath, atomically: true)
+        if !NSKeyedArchiver.archiveRootObject(cachedResponse, toFile: storagePath) {
             Log.error("Could not write file to cache");
         } else {
             //Log.info("CACHE save file to Cache  : \(storagePath)");

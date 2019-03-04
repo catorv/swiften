@@ -90,7 +90,7 @@ public struct JerseyEncoding: ParameterEncoding {
     
     private func serializingObject(_ object: Any) -> String {
         do {
-            let data = try JSONSerialization.data(withJSONObject: object, options: [.sortedKeys])
+            let data = try JSONSerialization.data(withJSONObject: object, options: [])
             if let string = String(data: data, encoding: .utf8) {
                 return string
             }
