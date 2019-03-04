@@ -9,7 +9,15 @@
 import Foundation
 
 extension CALayer {
-    func setBorderUIColor(_ color: UIColor) {
-        self.borderColor = color.cgColor
+    public var borderUIColor: UIColor? {
+        get {
+            if let borderColor = borderColor {
+                return UIColor(cgColor: borderColor)
+            }
+            return nil
+        }
+        set {
+            borderColor = newValue?.cgColor
+        }
     }
 }

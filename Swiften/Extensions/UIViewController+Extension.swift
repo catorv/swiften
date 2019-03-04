@@ -129,7 +129,7 @@ extension UIViewController {
 extension UIViewController {
     
     /// 从 Storyboard 中获取 ViewController
-    public static func withIdentifier(_ id: String, storyboardName name: String, bundle: Bundle? = nil) -> UIViewController {
+    public static func of(id: String, storyboard name: String = "Main", bundle: Bundle? = nil) -> UIViewController {
         let storyboard = UIStoryboard(name: name, bundle: bundle)
         return storyboard.instantiateViewController(withIdentifier: id)
     }

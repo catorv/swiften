@@ -21,6 +21,26 @@ public protocol ApiServiceDelegate: class {
     func responseDidReceive<T>(_ apiService: ApiService, response: ApiBaseResponse<T>)
 }
 
+// MARK: - Encoding
+
+public struct TextEncoding: ParameterEncoding {
+    
+    private let text: String?
+    
+    public init(text: String) {
+        self.text = text
+    }
+    
+    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        var request = try urlRequest.asURLRequest()
+        if let text = text {
+            request.httpBody = text.data(using: .utf8, allowLossyConversion: false)
+        }
+        return request
+    }
+    
+}
+
 // MARK: - ApiError
 
 public enum ApiError: Error {

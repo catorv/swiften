@@ -36,15 +36,22 @@ extension String {
 // MARK: Base64
 
 extension String {
-    /// Base64编码
-    public var base64Encoded: String {
+    public var base64: String {
         return data.base64EncodedString()
     }
-
-    /// Base64解码
-    public var base64Decoded: String {
-        return Data(base64Encoded: self)?.string ?? ""
+    
+    public init(base64String: String) {
+        self = Data(base64Encoded: base64String)?.string ?? ""
     }
+//    /// Base64编码
+//    public var base64Encoded: String {
+//        return data.base64EncodedString()
+//    }
+//
+//    /// Base64解码
+//    public var base64Decoded: String {
+//        return Data(base64Encoded: self)?.string ?? ""
+//    }
 }
 
 // MARK: Get the size of the text

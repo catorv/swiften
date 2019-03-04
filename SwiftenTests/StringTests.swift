@@ -36,9 +36,9 @@ class StringTests: XCTestCase {
   
   func testBase64() {
     let str = "cator"
-    let encoded = str.base64Encoded
+    let encoded = str.base64
     XCTAssertEqual(encoded, "Y2F0b3I=")
-    XCTAssertEqual(encoded.base64Decoded, str)
+    XCTAssertEqual(String(base64String: encoded), str)
   }
   
   func testSize() {

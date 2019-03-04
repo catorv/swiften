@@ -14,7 +14,7 @@ class DateTests: XCTestCase {
   let dateFormat = "yyyy-MM-dd HH:mm:ss"
   
   func testComponents() {
-    if let date = Date(string: dateString, format: dateFormat) {
+    if let date = Date(dateString, format: dateFormat) {
       let components = date.components()
       XCTAssertEqual(components.year, 2016)
       XCTAssertEqual(components.month, 6)
@@ -33,14 +33,14 @@ class DateTests: XCTestCase {
   }
   
   func testString() {
-    if let date = Date(string: dateString, format: dateFormat) {
+    if let date = Date(dateString, format: dateFormat) {
       XCTAssertEqual(String(date, format: dateFormat), dateString)
       XCTAssertEqual(String(date), dateString)
     }
   }
   
   func testTimestamp() {
-    if let date = Date(string: dateString, format: dateFormat) {
+    if let date = Date(dateString, format: dateFormat) {
       XCTAssertEqual(date.unixTimestamp, 1465356153)
       XCTAssertEqual(date.timestamp, 1465356153000)
     }

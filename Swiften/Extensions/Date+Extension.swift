@@ -31,7 +31,7 @@ extension Date {
     }
     
     /// 从格式化的字符串中创建日期对象
-    public init?(string: String, format: String = "yyyy-MM-dd HH:mm:ss") {
+    public init?(_ string: String, format: String = "yyyy-MM-dd HH:mm:ss") {
         if let date = DateFormatter(dateFormat: format).date(from: string) {
             self = date
         } else {

@@ -12,7 +12,6 @@ target :Swiften do
     pod 'RealmSwift', '~> 3.13'
     pod 'SwiftyJSON', '~> 4.0'
     pod 'Toast-Swift', '~> 4.0.0'
-#    pod 'CryptoSwift'
 end
 
 target :SwiftenTests do
@@ -26,5 +25,4 @@ target :SwiftenTests do
     pod 'RealmSwift', '~> 3.13'
     pod 'SwiftyJSON', '~> 4.0'
     pod 'Toast-Swift', '~> 4.0.0'
-#    pod 'CryptoSwift'
 end
