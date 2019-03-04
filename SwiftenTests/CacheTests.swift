@@ -32,31 +32,31 @@ fileprivate enum Caches: String {
   }
   
   func set(_ string: String, expires: TimeInterval = 0.0) {
-    Caches.manager.cachable.set(string: string, forKey: rawValue, expires: expires)
+    Caches.manager.cachable.set(string: string, for: rawValue, expires: expires)
   }
   
   func set(_ int: Int, expires: TimeInterval = 0.0) {
-    Caches.manager.cachable.set(string: String(int), forKey: rawValue, expires: expires)
+    Caches.manager.cachable.set(string: String(int), for: rawValue, expires: expires)
   }
   
   func set(_ double: Double, expires: TimeInterval = 0.0) {
-    Caches.manager.cachable.set(string: String(double), forKey: rawValue, expires: expires)
+    Caches.manager.cachable.set(string: String(double), for: rawValue, expires: expires)
   }
   
   func set(_ bool: Bool, expires: TimeInterval = 0.0) {
-    Caches.manager.cachable.set(string: String(bool), forKey: rawValue, expires: expires)
+    Caches.manager.cachable.set(string: String(bool), for: rawValue, expires: expires)
   }
   
   func get<T: Mappable>() -> T? {
-    return Caches.manager.object(forKey: rawValue)
+    return Caches.manager.object(for: rawValue)
   }
   
   func set<T: Mappable>(_ object: T, expires: Double = 0.0) {
-    Caches.manager.set(object: object, forKey: rawValue, expires: expires)
+    Caches.manager.set(object: object, for: rawValue, expires: expires)
   }
   
   func remove() {
-    Caches.manager.remove(forKey: rawValue)
+    Caches.manager.remove(for: rawValue)
   }
   
 }
@@ -83,7 +83,7 @@ class CacheTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    Caches.manager.clear()
+    Caches.manager.removeAll()
   }
   
   func testString() {
@@ -109,7 +109,6 @@ class CacheTests: XCTestCase {
     model.name = "cator"
     model.age = 18
     Caches.test.set(model)
-    XCTAssertEqual(Caches.test.string, "{\"name\":\"cator\",\"age\":18}")
     
     let model2: Model = Caches.test.get()!
     XCTAssertEqual(model2.name, "cator")

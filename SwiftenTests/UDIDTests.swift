@@ -15,7 +15,7 @@ class UDIDTests: XCTestCase {
     let udid1 = UDID().udidString
     let udid2 = UDID().udidString
     
-    XCTAssertEqual(udid1.length, 32)
+    XCTAssertEqual(udid1.count, 32)
     XCTAssertEqual(udid1, udid2)
   }
   

@@ -10,13 +10,13 @@ import XCTest
 @testable import Swiften
 
 class TestSwizzling: NSObject {
-  dynamic func methodOne() -> Int {
+    @objc dynamic func methodOne() -> Int {
     return 1
   }
 }
 
 extension TestSwizzling {  
-  func methodTwo() -> Int {
+    @objc func methodTwo() -> Int {
     return methodTwo() + 1
   }
 }

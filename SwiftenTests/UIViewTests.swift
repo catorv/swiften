@@ -10,7 +10,7 @@ import XCTest
 import Swiften
 
 class CustomView: UIView {
-  override func setupView() {
+    @objc override func setupView() {
     self.tag = 100
     Log.debug("#########################")
   }

@@ -35,7 +35,7 @@ class JerseyEncodingTests: XCTestCase {
 			"v4": [["a":1,"b":2], ["c":3,"d":true]]
 			])
 		let url = encodedRequest.url!.absoluteString
-		XCTAssertEqual(url, "http://127.0.0.1/?v1=1&v1=2&v1=3&v1=4&v1=6&v2=true&v2=false&v2=true&v4=%7B%22b%22%3A2%2C%22a%22%3A1%7D&v4=%7B%22d%22%3Atrue%2C%22c%22%3A3%7D")
+		XCTAssertEqual(url, "http://127.0.0.1/?v1=1&v1=2&v1=3&v1=4&v1=6&v2=true&v2=false&v2=true&v4=%7B%22a%22%3A1%2C%22b%22%3A2%7D&v4=%7B%22c%22%3A3%2C%22d%22%3Atrue%7D")
 	}
 	
 	func testDictionary() {
@@ -46,7 +46,7 @@ class JerseyEncodingTests: XCTestCase {
 			])
 		let url = encodedRequest.url!.absoluteString
 		print(url)
-		XCTAssertEqual(url, "http://127.0.0.1/?v4=%7B%22b%22%3A%5Btrue%2Cfalse%2Ctrue%5D%2C%22a%22%3A%5B1%2C2%2C3%2C4%2C6%5D%2C%22d%22%3Atrue%2C%22c%22%3A3%7D")
+		XCTAssertEqual(url, "http://127.0.0.1/?v4=%7B%22a%22%3A%5B1%2C2%2C3%2C4%2C6%5D%2C%22b%22%3A%5Btrue%2Cfalse%2Ctrue%5D%2C%22c%22%3A3%2C%22d%22%3Atrue%7D")
 	}
 	
 }

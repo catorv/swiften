@@ -2,8 +2,8 @@
 //  Swiften.h
 //  Swiften
 //
-//  Created by Cator Vee on 5/23/16.
-//  Copyright © 2016 Cator Vee. All rights reserved.
+//  Created by Cator Vee on 2019/3/3.
+//  Copyright © 2019 Cator Vee. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

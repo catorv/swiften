@@ -51,7 +51,7 @@ class AccessTokenAdapter: RequestAdapter {
 }
 
 class Api: ApiServiceDelegate {
-	public static let `default` = Api()
+	public static let shared = Api()
 	
 	var urlPrefix: String {
 		return "http://127.0.0.1:8000/"
@@ -77,7 +77,7 @@ class Api: ApiServiceDelegate {
 	}
 	
 	public static func api(_ path: String, defaultParameters parameters: Parameters? = nil) -> ApiService {
-		return ApiService(path: path, delegate: Api.default, defaultParameters: parameters)
+		return ApiService(path: path, delegate: Api.shared, defaultParameters: parameters)
 	}
 }
 
@@ -90,9 +90,9 @@ extension Api {
 }
 
 extension Api {
-	open static let sharedCookieStorage = HTTPCookieStorage.shared
+	public static let sharedCookieStorage = HTTPCookieStorage.shared
 	
-	open static func initHttpClient() {
+	public static func initHttpClient() {
 		FileURLCache.activate()
 		
 		
@@ -157,8 +157,10 @@ class HttpClientTests: XCTestCase {
 		
 		Api.test.call { (response: ApiObjectResponse<MessageBody>) in
 			if let value = response.value {
-				let json = value.toJSONString()
-				XCTAssertEqual(json, "{\"code\":0,\"token\":\"hhhaaacccddkekkaksdjfskjfsj\",\"msg\":{\"name\":\"cator\",\"age\":38}}")
+                XCTAssertEqual(value.code, 0)
+                XCTAssertEqual(value.token, "hhhaaacccddkekkaksdjfskjfsj")
+                XCTAssertEqual(value.msg?.name, "cator")
+                XCTAssertEqual(value.msg?.age, 38)
 				XCTAssertEqual(response.msg?.name, "cator")
 				XCTAssertEqual(response.json?["msg"]["name"].string, "cator")
 			}
@@ -177,8 +179,13 @@ class HttpClientTests: XCTestCase {
 		
 		Api.testArray.call { (response: ApiObjectArrayResponse<MessageBody>) in
 			if let value = response.value {
-				let json = value.toJSONString()
-				XCTAssertEqual(json, "{\"code\":0,\"token\":\"hhhaaacccddkekkaksdjfskjfsj\",\"msg\":[{\"name\":\"cator\",\"age\":38},{\"name\":\"cator2\",\"age\":40}]}")
+                XCTAssertEqual(value.code, 0)
+                XCTAssertEqual(value.token, "hhhaaacccddkekkaksdjfskjfsj")
+                XCTAssertEqual(value.msg?.count, 2)
+                XCTAssertEqual(value.msg?[0].name, "cator")
+                XCTAssertEqual(value.msg?[0].age, 38)
+                XCTAssertEqual(value.msg?[1].name, "cator2")
+                XCTAssertEqual(value.msg?[1].age, 40)
 				XCTAssertEqual(response.msg?.count, 2)
 			}
 			exp.fulfill()
@@ -196,8 +203,9 @@ class HttpClientTests: XCTestCase {
 		
 		Api.testString.call { (response: ApiResponse<String>) in
 			if let value = response.value {
-				let json = value.toJSONString()
-				XCTAssertEqual(json, "{\"code\":0,\"token\":\"hhhaaacccddkekkaksdjfskjfsj\",\"msg\":\"cator vee\"}")
+                XCTAssertEqual(value.code, 0)
+                XCTAssertEqual(value.token, "hhhaaacccddkekkaksdjfskjfsj")
+                XCTAssertEqual(value.msg, "cator vee")
 				XCTAssertEqual(response.msg, "cator vee")
 			}
 			exp.fulfill()
@@ -215,8 +223,11 @@ class HttpClientTests: XCTestCase {
 		
 		Api.testArrayString.call { (response: ApiArrayResponse<String>) in
 			if let value = response.value {
-				let json = value.toJSONString()
-				XCTAssertEqual(json, "{\"code\":0,\"token\":\"hhhaaacccddkekkaksdjfskjfsj\",\"msg\":[\"cator\",\"vee\"]}")
+                XCTAssertEqual(value.code, 0)
+                XCTAssertEqual(value.token, "hhhaaacccddkekkaksdjfskjfsj")
+                XCTAssertEqual(value.msg?.count, 2)
+                XCTAssertEqual(value.msg?[0], "cator")
+                XCTAssertEqual(value.msg?[1], "vee")
 				XCTAssertEqual(response.msg?.count, 2)
 			}
 			exp.fulfill()

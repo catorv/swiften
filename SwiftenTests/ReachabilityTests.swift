@@ -8,7 +8,7 @@
 
 import XCTest
 import Swiften
-import ReachabilitySwift
+import Reachability
 
 class ReachabilityTests: XCTestCase {
   
@@ -18,11 +18,11 @@ class ReachabilityTests: XCTestCase {
       return
     }
     
-    XCTAssertEqual(reachability.currentReachabilityStatus, Reachability.NetworkStatus.reachableViaWiFi)
+    XCTAssertEqual(reachability.connection, .wifi)
     
-    XCTAssertTrue(reachability.isReachable)
-    XCTAssertTrue(reachability.isReachableViaWiFi)
-    XCTAssertFalse(reachability.isReachableViaWWAN)
+    XCTAssertTrue(reachability.connection != .none)
+    XCTAssertTrue(reachability.connection == .wifi)
+    XCTAssertFalse(reachability.connection == .cellular)
   }
   
 }

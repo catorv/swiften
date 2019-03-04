@@ -10,10 +10,10 @@ import Foundation
 
 fileprivate var needsInitFramework = true
 public func initFramework() {
-  guard needsInitFramework else {
-    return
-  }
-  needsInitFramework = false
-  
-  UIView.swizzle()
+    guard needsInitFramework else {
+        return
+    }
+    needsInitFramework = false
+    
+    UIView.swizzle()
 }

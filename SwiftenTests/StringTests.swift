@@ -12,13 +12,13 @@ class StringTests: XCTestCase {
   
   func testLength() {
     let str1 = "1234567890"
-    XCTAssertEqual(str1.length, 10)
+    XCTAssertEqual(str1.count, 10)
     
     let str2 = "123中文"
-    XCTAssertEqual(str2.length, 5)
+    XCTAssertEqual(str2.count, 5)
     
     let str3 = "emoji😃"
-    XCTAssertEqual(str3.length, 6)
+    XCTAssertEqual(str3.count, 6)
   }
   
   func testUrlEncode() {
@@ -65,7 +65,7 @@ class StringTests: XCTestCase {
     XCTAssertEqual(str.substring(3, -3), "or魏永增emo")
     XCTAssertEqual(str.substring(0, 100), str)
     XCTAssertNil(str.substring(9, 1))
-    XCTAssertNil(str.substring(100, str.length))
+    XCTAssertNil(str.substring(100, str.count))
     XCTAssertNil(str.substring(0, -100))
     
     XCTAssertEqual(str[0...0], "c")
