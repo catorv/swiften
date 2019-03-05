@@ -14,7 +14,7 @@ open class RealmCacheValue: Object, CacheValue {
     @objc dynamic public var value: String = ""
     @objc dynamic public var expires: TimeInterval = 0.0
     
-    public static let om = RealmObjectManager<RealmCacheValue>(realm: Realm.shared)
+    public static let om = RealmObjectManager<RealmCacheValue>(realm: Realm.createRealm(name: "cache")!)
     
     // 主键
     override open class func primaryKey() -> String? {
