@@ -23,12 +23,7 @@ extension Realm {
             return nil
         }
         do {
-            if let root = defaultRootUrl?.absoluteString {
-                if !FileManager.default.fileExists(atPath: root) {
-                    try FileManager.default.createDirectory(atPath: root, withIntermediateDirectories: true, attributes: nil)
-                }
-            }
-            Log.debug("读取数据库: \(url.absoluteString)")
+            Log.debug("数据库路径: \(url.absoluteString)")
             return try Realm(fileURL: url)
         } catch let error {
             Log.error("创建数据库失败：\(error)")
