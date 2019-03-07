@@ -23,21 +23,13 @@ open class RealmObjectManager<T: Object> {
         return realm.objects(T.self)
     }
     
-    open func object(primaryKey key: AnyObject) -> T? {
+    open func object(primaryKey key: Any) -> T? {
         return realm.object(ofType: T.self, forPrimaryKey: key)
-    }
-    
-    open func filter(_ predicateFormat: String, _ args: AnyObject...) -> Results<T> {
-        return objects.filter(predicateFormat, args)
-    }
-    
-    open func filter(_ predicate: NSPredicate) -> Results<T> {
-        return objects.filter(predicate)
     }
     
     // MARK: - Create Object
     
-    open func create(_ value: AnyObject) -> T? {
+    open func create(_ value: Any) -> T? {
         var object: T?
         do {
             try realm.write { [weak realm] in
@@ -81,26 +73,6 @@ open class RealmObjectManager<T: Object> {
         }
     }
     
-    open func delete(_ objects: Results<T>) {
-        do {
-            try realm.write { [weak realm] in
-                realm?.delete(objects)
-            }
-        } catch let error {
-            Log.error("ObjectManager: \(error)")
-        }
-    }
-    
-    open func delete(_ objects: List<T>) {
-        do {
-            try realm.write { [weak realm] in
-                realm?.delete(objects)
-            }
-        } catch let error {
-            Log.error("ObjectManager: \(error)")
-        }
-    }
-    
     open func delete<S: Sequence>(_ objects: S) where S.Iterator.Element: Object {
         do {
             try realm.write { [weak realm] in
@@ -111,15 +83,7 @@ open class RealmObjectManager<T: Object> {
         }
     }
     
-    open func delete(_ predicateFormat: String, _ args: AnyObject...) {
-        delete(objects.filter(predicateFormat, args))
-    }
-    
-    open func delete(_ predicate: NSPredicate) {
-        delete(objects.filter(predicate))
-    }
-    
-    open func delete(primaryKey key: AnyObject) {
+    open func delete(primaryKey key: Any) {
         if let object = object(primaryKey: key) {
             delete(object)
         }
@@ -135,4 +99,38 @@ open class RealmObjectManager<T: Object> {
         }
     }
     
+}
+
+extension Results where Element: Object {
+    func deleteAll() {
+        guard !isEmpty else {
+            return
+        }
+        if let realm = self.realm {
+            do {
+                try realm.write { [weak realm] in
+                    realm?.delete(self)
+                }
+            } catch let error {
+                Log.error("ObjectManager: \(error)")
+            }
+        }
+    }
+}
+
+extension List where Element: Object {
+    func deleteAll() {
+        guard !isEmpty else {
+            return
+        }
+        if let realm = self.realm {
+            do {
+                try realm.write { [weak realm] in
+                    realm?.delete(self)
+                }
+            } catch let error {
+                Log.error("ObjectManager: \(error)")
+            }
+        }
+    }
 }

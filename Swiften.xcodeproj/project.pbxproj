@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27A99D30751918A948E26FC9 /* Pods_SwiftenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8DDE99C32670218FB029C4B /* Pods_SwiftenTests.framework */; };
+		58D79FAC2230CAB000E67A8A /* RealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F0DD49D131B92DDC5BFB8 /* RealmTests.swift */; };
 		58DFE784222BF31A00892393 /* Swiften.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DFE77A222BF31A00892393 /* Swiften.framework */; };
 		58DFE789222BF31A00892393 /* SwiftenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DFE788222BF31A00892393 /* SwiftenTests.swift */; };
 		58DFE78B222BF31A00892393 /* Swiften.h in Headers */ = {isa = PBXBuildFile; fileRef = 58DFE77D222BF31A00892393 /* Swiften.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,6 +72,7 @@
 		58DFE843222C1D7700892393 /* JerseyEncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DFE834222C1D7700892393 /* JerseyEncodingTests.swift */; };
 		58DFE844222C1D7700892393 /* LogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DFE835222C1D7700892393 /* LogTests.swift */; };
 		58DFE846222C1DD200892393 /* Swiften.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DFE845222C1DD200892393 /* Swiften.swift */; };
+		5A0F05C8A42ECD63BAB16ABA /* ManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F056A3051AE216274B4B8 /* ManagedObject.swift */; };
 		881D006D0F7434DFA1BF2CE5 /* Pods_Swiften.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C21588660FB7CAA74CE7D9AB /* Pods_Swiften.framework */; };
 /* End PBXBuildFile section */
 
@@ -153,6 +155,8 @@
 		58DFE834222C1D7700892393 /* JerseyEncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JerseyEncodingTests.swift; sourceTree = "<group>"; };
 		58DFE835222C1D7700892393 /* LogTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogTests.swift; sourceTree = "<group>"; };
 		58DFE845222C1DD200892393 /* Swiften.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swiften.swift; sourceTree = "<group>"; };
+		5A0F056A3051AE216274B4B8 /* ManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObject.swift; sourceTree = "<group>"; };
+		5A0F0DD49D131B92DDC5BFB8 /* RealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTests.swift; sourceTree = "<group>"; };
 		76FAE6C7A204A0240DB9F4FD /* Pods-SwiftenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftenTests.debug.xcconfig"; path = "Target Support Files/Pods-SwiftenTests/Pods-SwiftenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9C6570C2FCA20DC586EB8BF7 /* Pods-Swiften.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swiften.debug.xcconfig"; path = "Target Support Files/Pods-Swiften/Pods-Swiften.debug.xcconfig"; sourceTree = "<group>"; };
 		A8DDE99C32670218FB029C4B /* Pods_SwiftenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,6 +265,7 @@
 				58DFE832222C1D7700892393 /* UIViewTests.swift */,
 				58DFE82A222C1D7600892393 /* UserAgentTests.swift */,
 				58DFE788222BF31A00892393 /* SwiftenTests.swift */,
+				5A0F0DD49D131B92DDC5BFB8 /* RealmTests.swift */,
 				58DFE78A222BF31A00892393 /* Info.plist */,
 			);
 			path = SwiftenTests;
@@ -306,6 +311,7 @@
 			children = (
 				58DFE7C2222C05FF00892393 /* Realm+Manager.swift */,
 				58DFE7B4222C057400892393 /* RealmObjectManager.swift */,
+				5A0F056A3051AE216274B4B8 /* ManagedObject.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -621,6 +627,7 @@
 				58DFE7CE222C07A000892393 /* Stringify.swift in Sources */,
 				58DFE79E222BF62E00892393 /* Date+Extension.swift in Sources */,
 				58DFE7EB222C0B7700892393 /* WebView+UserContentController.swift in Sources */,
+				5A0F05C8A42ECD63BAB16ABA /* ManagedObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +646,7 @@
 				58DFE824222C161100892393 /* CacheTests.swift in Sources */,
 				58DFE83B222C1D7700892393 /* UDIDTests.swift in Sources */,
 				58DFE83C222C1D7700892393 /* DateTests.swift in Sources */,
+				58D79FAC2230CAB000E67A8A /* RealmTests.swift in Sources */,
 				58DFE807222C14BF00892393 /* AppTests.swift in Sources */,
 				58DFE825222C161100892393 /* DataTests.swift in Sources */,
 				58DFE843222C1D7700892393 /* JerseyEncodingTests.swift in Sources */,
@@ -713,7 +721,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -771,7 +779,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
