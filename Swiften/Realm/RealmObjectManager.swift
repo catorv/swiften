@@ -46,7 +46,11 @@ open class RealmObjectManager<T: Object> {
     open func save(_ object: T) {
         do {
             try realm.write { [weak realm] in
-                realm?.add(object, update: true)
+                if object.objectSchema.primaryKeyProperty == nil {
+                    realm?.add(object)
+                } else {
+                    realm?.add(object, update: true)
+                }
             }
         } catch let error {
             Log.error("ObjectManager: \(error)")
