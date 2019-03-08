@@ -21,5 +21,12 @@ extension UIColor {
     public convenience init(rgba: UInt32) {
         self.init(r: rgba >> 24, g: rgba >> 16 & 0xFF, b: rgba >> 8 & 0xFF, alpha: CGFloat(rgba & 0xFF) / 255)
     }
+
+    static func rgb(_ rgb: UInt32, alpha: CGFloat = 1) -> UIColor {
+        return UIColor(rgb: rgb, alpha: alpha)
+    }
     
+    static func rgba(_ rgba: UInt32) -> UIColor {
+        return UIColor(rgba: rgba)
+    }
 }
