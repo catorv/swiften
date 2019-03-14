@@ -22,7 +22,7 @@ open class RealmCacheValue: Object, CacheValue {
     }
     
     public var isValid: Bool {
-        return expires < 0.000001 || expires > Date.timeIntervalSince1970
+        return expires < 0.000001 || expires > Date.timeInterval
     }
 }
 

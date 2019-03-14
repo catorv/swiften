@@ -65,8 +65,8 @@ extension Date {
         return Int(Date().timeIntervalSince1970 * 1000)
     }
     
-    /// Now: 当前时间间隔
-    public static var timeIntervalSince1970: Int {
+    /// Now: 当前时间间隔(从格林威治时间1970年01月01日00时00分00秒起)
+    public static var timeInterval: TimeInterval {
         return Date().timeIntervalSince1970
     }
 }
