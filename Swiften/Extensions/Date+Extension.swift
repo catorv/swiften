@@ -64,6 +64,11 @@ extension Date {
     public static var now: Int {
         return Int(Date().timeIntervalSince1970 * 1000)
     }
+    
+    /// Now: 当前时间间隔
+    public static var timeIntervalSince1970: Int {
+        return Date().timeIntervalSince1970
+    }
 }
 
 // 日期加减运算 @see SwiftDate https://github.com/malcommac/SwiftDate
