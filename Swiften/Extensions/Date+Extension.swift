@@ -56,10 +56,14 @@ extension Date {
     }
     
     /// Timestamp: 从格林威治时间1970年01月01日00时00分00秒起至现在的总豪秒数
-    public var timestamp: Int64 {
-        return Int64(self.timeIntervalSince1970 * 1000)
+    public var timestamp: Int {
+        return Int(self.timeIntervalSince1970 * 1000)
     }
     
+    /// Now: 当前时间戳(从格林威治时间1970年01月01日00时00分00秒起至现在的总豪秒数)
+    public static Int now: Int {
+        return Int(Date().timeIntervalSince1970 * 1000)
+    }
 }
 
 // 日期加减运算 @see SwiftDate https://github.com/malcommac/SwiftDate
