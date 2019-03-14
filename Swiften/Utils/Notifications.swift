@@ -20,27 +20,27 @@ public struct Notifications {
     public class Proxy {
         private let name: Name
         
-        init(name: Name) {
+        public init(name: Name) {
             self.name = name
         }
         
-        convenience init(name: String) {
+        public convenience init(name: String) {
             self.init(name: Name(name))
         }
         
-        open func post(object: Any? = nil, userInfo: [AnyHashable : Any]? = nil) {
+        public func post(object: Any? = nil, userInfo: [AnyHashable : Any]? = nil) {
             Log.info("@N>\(name) object=\(String(describing: object)) userInfo=\(String(describing: userInfo))")
             async {
                 notificationCenter.post(name: self.name, object: object, userInfo: userInfo)
             }
         }
         
-        open func add(observer: Any, selector: Selector, sender object: AnyObject? = nil) {
+        public func add(observer: Any, selector: Selector, sender object: AnyObject? = nil) {
             Log.info("@N+\(name) \(selector)@\(observer)")
             notificationCenter.addObserver(observer, selector: selector, name: name, object: object)
         }
         
-        open func remove(observer: Any, sender object: Any? = nil) {
+        public func remove(observer: Any, sender object: Any? = nil) {
             Log.info("@N-\(name) \(observer)")
             notificationCenter.removeObserver(observer, name: name, object: object)
         }
