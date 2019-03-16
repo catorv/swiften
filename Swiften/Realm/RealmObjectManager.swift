@@ -17,6 +17,10 @@ open class RealmObjectManager<T: Object> {
         self.realm = realm
     }
     
+    public convenience init() {
+        self.init(realm: Realm.shared)
+    }
+    
     // MARK: - Query Object
     
     open var objects: Results<T> {
