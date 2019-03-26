@@ -106,11 +106,10 @@ open class RealmObjectManager<T: Object> {
             Log.error("ObjectManager: \(error)")
         }
     }
-    
 }
 
-extension Results where Element: Object {
-    func deleteAll() {
+public extension Results where Element: Object {
+    public func deleteAll() {
         guard !isEmpty else {
             return
         }
@@ -126,8 +125,8 @@ extension Results where Element: Object {
     }
 }
 
-extension List where Element: Object {
-    func deleteAll() {
+public extension List where Element: Object {
+    public func deleteAll() {
         guard !isEmpty else {
             return
         }

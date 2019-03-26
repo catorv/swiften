@@ -76,13 +76,13 @@ public extension ManagedObject {
 }
 
 public extension List where Element: ManagedObject {
-    func saveAll() {
+    public func saveAll() {
         self.forEach { $0.save() }
     }
 }
 
 public extension Results where Element: ManagedObject {
-    func saveAll() {
+    public func saveAll() {
         self.forEach { $0.save() }
     }
 }
