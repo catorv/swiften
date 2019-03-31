@@ -84,12 +84,8 @@ extension UIImage {
                 return result
             }
             let result = ContentType(value)
-            if result == .jpeg {
-                return .jpeg
-            } else if result == .png {
-                return .png
-            } else if result == .gif {
-                return .gif
+            if result == .jpeg || result == .png || result == .gif {
+                return result
             } else {
                 return .unknown
             }
@@ -99,7 +95,7 @@ extension UIImage {
         }
     }
     
-    convenience init?(data: Data, contentType: ContentType) {
+    public convenience init?(data: Data, contentType: ContentType) {
         self.init(data: data)
         if contentType == .unknown {
             self.contentType = UIImage.contentType(from: data)
