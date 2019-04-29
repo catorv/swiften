@@ -11,6 +11,19 @@ import RealmSwift
 
 extension Realm {
     
+    fileprivate struct AssociatedKey {
+        static var queue: Int = 0
+    }
+    
+    public var queue: DispatchQueue {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKey.queue) as? DispatchQueue ?? DispatchQueue.global()
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKey.queue, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    
     public static let defaultRootUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first //Realm.Configuration.defaultConfiguration.fileURL?.deletingLastPathComponent()
     
     public static var shared: Realm! = createRealm(name: "shared")
@@ -33,11 +46,23 @@ extension Realm {
         let url = root.appendingPathComponent("\(name).realm")
         do {
             Log.debug("数据库路径: \(url.absoluteString)")
-            return try Realm(fileURL: url)
+            let realm = try Realm(fileURL: url)
+            realm.queue = DispatchQueue(label: name)
+            return realm
         } catch let error {
             Log.error("创建数据库失败：\(error)")
         }
         return nil
+    }
+    
+    public func writeSync(_ block: (() throws -> Void)) {
+        queue.sync { [weak self] in
+            do {
+                try self?.write(block)
+            } catch let error as NSError {
+                Log.error("ObjectManager: \(error)")
+            }
+        }
     }
     
 }

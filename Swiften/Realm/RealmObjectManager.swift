@@ -35,12 +35,8 @@ open class RealmObjectManager<T: Object> {
     
     open func create(_ value: Any) -> T? {
         var object: T?
-        do {
-            try realm.write { [weak realm] in
-                object = realm?.create(T.self, value: value, update: true)
-            }
-        } catch let error {
-            Log.error("ObjectManager: \(error)")
+        realm.writeSync { [weak realm] in
+            object = realm?.create(T.self, value: value, update: true)
         }
         return object
     }
@@ -48,46 +44,30 @@ open class RealmObjectManager<T: Object> {
     // MARK: - Save Object
     
     open func save(_ object: T) {
-        do {
-            try realm.write { [weak realm] in
-                if object.objectSchema.primaryKeyProperty == nil {
-                    realm?.add(object)
-                } else {
-                    realm?.add(object, update: true)
-                }
+        realm.writeSync { [weak realm] in
+            if object.objectSchema.primaryKeyProperty == nil {
+                realm?.add(object)
+            } else {
+                realm?.add(object, update: true)
             }
-        } catch let error {
-            Log.error("ObjectManager: \(error)")
         }
     }
     
     open func write(_ callback: () -> Void) {
-        do {
-            try realm.write(callback)
-        } catch let error {
-            Log.error("ObjectManager: \(error)")
-        }
+        realm.writeSync(callback)
     }
     
     // MARK: - Delete Object
     
     open func delete(_ object: T) {
-        do {
-            try realm.write { [weak realm] in
-                realm?.delete(object)
-            }
-        } catch let error {
-            Log.error("ObjectManager: \(error)")
+        realm.writeSync { [weak realm] in
+            realm?.delete(object)
         }
     }
     
     open func delete<S: Sequence>(_ objects: S) where S.Iterator.Element: Object {
-        do {
-            try realm.write { [weak realm] in
-                realm?.delete(objects)
-            }
-        } catch let error {
-            Log.error("ObjectManager: \(error)")
+        realm.writeSync { [weak realm] in
+            realm?.delete(objects)
         }
     }
     
@@ -98,46 +78,22 @@ open class RealmObjectManager<T: Object> {
     }
     
     open func deleteAll() {
-        do {
-            try realm.write { [objects, weak realm] in
-                realm?.delete(objects)
-            }
-        } catch let error as NSError {
-            Log.error("ObjectManager: \(error)")
+        realm.writeSync { [objects, weak realm] in
+            realm?.delete(objects)
         }
     }
 }
 
 public extension Results where Element: Object {
-    public func deleteAll() {
-        guard !isEmpty else {
-            return
-        }
-        if let realm = self.realm {
-            do {
-                try realm.write { [weak realm] in
-                    realm?.delete(self)
-                }
-            } catch let error {
-                Log.error("ObjectManager: \(error)")
-            }
-        }
+    func deleteAll() {
+        guard !isEmpty else { return }
+        realm?.writeSync { [weak realm] in realm?.delete(self) }
     }
 }
 
 public extension List where Element: Object {
-    public func deleteAll() {
-        guard !isEmpty else {
-            return
-        }
-        if let realm = self.realm {
-            do {
-                try realm.write { [weak realm] in
-                    realm?.delete(self)
-                }
-            } catch let error {
-                Log.error("ObjectManager: \(error)")
-            }
-        }
+    func deleteAll() {
+        guard !isEmpty else { return }
+        realm?.writeSync { [weak realm] in realm?.delete(self) }
     }
 }
