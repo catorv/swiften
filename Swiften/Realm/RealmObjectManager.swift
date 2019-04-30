@@ -86,14 +86,14 @@ open class RealmObjectManager<T: Object> {
 
 public extension Results where Element: Object {
     func deleteAll() {
-        guard !isEmpty else { return }
-        realm?.writeSync { [weak realm] in realm?.delete(self) }
+        guard !isEmpty, let realm = realm else { return }
+        realm.writeSync { realm.delete(self) }
     }
 }
 
 public extension List where Element: Object {
     func deleteAll() {
-        guard !isEmpty else { return }
-        realm?.writeSync { [weak realm] in realm?.delete(self) }
+        guard !isEmpty, let realm = realm else { return }
+        realm.writeSync { realm.delete(self) }
     }
 }
