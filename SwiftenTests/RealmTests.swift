@@ -43,6 +43,21 @@ class RealmTests: XCTestCase {
 
         XCTAssertEqual(obj, TestObject.get(by: "object-id"))
         
+        let obj2 = TestObject()
+        obj2.id = "object-id"
+        obj2.name = "Cator Vee"
+        obj2.age = 18
+        
+        obj.write {
+            obj.age = 19
+            obj.write {
+                obj.age = 20
+            }
+            obj2.write {
+                obj2.age = 21
+            }
+        }
+        
         TestObject.deleteAll()
         
         XCTAssertNil(TestObject.get(by: "object-id"))

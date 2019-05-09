@@ -35,7 +35,7 @@ open class RealmObjectManager<T: Object> {
     
     open func create(_ value: Any) -> T? {
         var object: T?
-        realm.writeSync { [weak realm] in
+        realm.muteWrite { [weak realm] in
             object = realm?.create(T.self, value: value, update: true)
         }
         return object
@@ -44,7 +44,7 @@ open class RealmObjectManager<T: Object> {
     // MARK: - Save Object
     
     open func save(_ object: T) {
-        realm.writeSync { [weak realm] in
+        realm.muteWrite { [weak realm] in
             if object.objectSchema.primaryKeyProperty == nil {
                 realm?.add(object)
             } else {
@@ -54,19 +54,19 @@ open class RealmObjectManager<T: Object> {
     }
     
     open func write(_ callback: () -> Void) {
-        realm.writeSync(callback)
+        realm.muteWrite(callback)
     }
     
     // MARK: - Delete Object
     
     open func delete(_ object: T) {
-        realm.writeSync { [weak realm] in
+        realm.muteWrite { [weak realm] in
             realm?.delete(object)
         }
     }
     
     open func delete<S: Sequence>(_ objects: S) where S.Iterator.Element: Object {
-        realm.writeSync { [weak realm] in
+        realm.muteWrite { [weak realm] in
             realm?.delete(objects)
         }
     }
@@ -78,7 +78,7 @@ open class RealmObjectManager<T: Object> {
     }
     
     open func deleteAll() {
-        realm.writeSync { [objects, weak realm] in
+        realm.muteWrite { [objects, weak realm] in
             realm?.delete(objects)
         }
     }
@@ -87,13 +87,13 @@ open class RealmObjectManager<T: Object> {
 public extension Results where Element: Object {
     func deleteAll() {
         guard !isEmpty, let realm = realm else { return }
-        realm.writeSync { realm.delete(self) }
+        realm.muteWrite { realm.delete(self) }
     }
 }
 
 public extension List where Element: Object {
     func deleteAll() {
         guard !isEmpty, let realm = realm else { return }
-        realm.writeSync { realm.delete(self) }
+        realm.muteWrite { realm.delete(self) }
     }
 }
