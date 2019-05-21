@@ -18,7 +18,7 @@ public struct UDID {
     /// UDID String
     public var udidString: String {
         let keychain = KeychainSwift()
-        if let udid = keychain.get("COMMON_UDID") {
+        if let udid = keychain.get("SWIFTEN_UDID") {
             return udid
         }
         
@@ -28,7 +28,7 @@ public struct UDID {
         } else {
             udid = UUID().uuidString.replacingOccurrences(of: "-", with: "")
         }
-        keychain.set(udid, forKey: "COMMON_UDID")
+        keychain.set(udid, forKey: "SWIFTEN_UDID", withAccess: .accessibleAlwaysThisDeviceOnly)
         return udid
     }
     
